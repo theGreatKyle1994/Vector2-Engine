@@ -1,3 +1,4 @@
+import { deltaTime } from "../../main";
 import Vector2 from "../Vector2";
 
 export default class Rectangle {
@@ -51,8 +52,12 @@ export default class Rectangle {
     for (let i = 0; i < verts.length; i++) {
       edges.push(
         new Vector2({
-          x: Math.abs(verts[i].x + verts[i !== 3 ? i + 1 : 0].x) / 2,
-          y: Math.abs(verts[i].y + verts[i !== 3 ? i + 1 : 0].y) / 2,
+          x:
+            Math.abs(verts[i].x + verts[i !== verts.length - 1 ? i + 1 : 0].x) /
+            2,
+          y:
+            Math.abs(verts[i].y + verts[i !== verts.length - 1 ? i + 1 : 0].y) /
+            2,
         })
       );
     }
@@ -71,11 +76,11 @@ export default class Rectangle {
       y: centerY / vertices.length,
     });
   }
-  private rotateMatrix(angle: number): Vector2[] {
+  protected rotateMatrix(angle: number): Vector2[] {
     const radians: number = (angle * Math.PI) / 180;
     const verts: Vector2[] = this.getVertices();
-    const rotatedVerts: Vector2[] = [];
     const center: Vector2 = this.getCenterOrigin();
+    const rotatedVerts: Vector2[] = [];
     for (let i = 0; i < verts.length; i++) {
       rotatedVerts.push(
         new Vector2({
@@ -93,8 +98,11 @@ export default class Rectangle {
     return rotatedVerts;
   }
   public rotate(angle: number): void {
-    this.rotation += angle;
-    const rotatedVerts = this.rotateMatrix(this.rotation);
-    this.vertices = rotatedVerts;
+    this.rotation += angle * deltaTime;
+    this.vertices = this.rotateMatrix(this.rotation);
+  }
+  public setRotation(angle: number): void {
+    this.rotation = angle;
+    this.vertices = this.rotateMatrix(this.rotation);
   }
 }
