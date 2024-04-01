@@ -1,7 +1,7 @@
 import Rectangle from "./physics/primitives/Rectangle";
 
-export const canvas = document.querySelector("canvas") as HTMLCanvasElement;
-export const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+const canvas = document.querySelector("canvas") as HTMLCanvasElement;
+const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
 const fps: number = 60;
 const frameInterval: number = 1000 / 60;
 let deltaTime: number = 0;
