@@ -1,4 +1,4 @@
-interface Vector2Snippet {
+export interface Vector2Snippet {
   x: number;
   y: number;
 }
