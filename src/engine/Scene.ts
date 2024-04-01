@@ -3,7 +3,7 @@ import Rectangle from "../physics/primitives/Rectangle";
 import ObjectHandler from "./ObjectHandler";
 
 export default class Scene {
-  protected objectHandler = new ObjectHandler();
+  #objectHandler = new ObjectHandler();
 
   constructor() {
     this.init();
@@ -14,14 +14,14 @@ export default class Scene {
   protected create(): void {}
 
   public update(ctx: CanvasRenderingContext2D, deltaTime: number): void {
-    this.objectHandler.run(ctx, deltaTime);
+    this.#objectHandler.run(ctx, deltaTime);
   }
 
   public add(object: Polygon | Rectangle, id: string): void {
-    this.objectHandler.addObject(object, id);
+    this.#objectHandler.addObject(object, id);
   }
 
   public remove(id: string): void {
-    this.objectHandler.removeObject(id);
+    this.#objectHandler.removeObject(id);
   }
 }

@@ -1,39 +1,23 @@
-import Rectangle from "./physics/primitives/Rectangle";
-import Polygon from "./physics/primitives/Polygon";
+import GameInstance from "./engine/GameInstance";
 import Scene from "./engine/Scene";
+import Rectangle from "./physics/primitives/Rectangle";
+import type { GameConfig } from "./engine/GameInstance";
 
-const canvas = document.querySelector("canvas") as HTMLCanvasElement;
-const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-const fps: number = 60;
-const frameInterval: number = 1000 / 60;
-let deltaTime: number = 0;
-let prevTime: number = performance.now();
+const box: Rectangle = new Rectangle(0, 0, 100, 100);
 
-const myScene = new Scene();
-
-const poly: Polygon = new Polygon([
-  { x: 0, y: 0 },
-  { x: 100, y: 0 },
-  { x: 50, y: 85 },
-]);
-const box: Rectangle = new Rectangle(100, 100, 100, 100);
-
-function updateCanvas(): void {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  myScene.update(ctx, deltaTime);
+class myScene extends Scene {
+  constructor() {
+    super();
+  }
+  protected create(): void {
+    this.add(box, "box");
+    box.setRotation(1);
+    box.setIsRotating(true);
+  }
 }
 
-function gameLoop(currTime: number): void {
-  deltaTime = (currTime - prevTime) / frameInterval;
-  prevTime = currTime;
-  updateCanvas();
-  setTimeout(() => requestAnimationFrame(gameLoop), 1000 / fps);
-}
+const config: GameConfig = {
+  scene: new myScene(),
+};
 
-function init(): void {
-  myScene.add(poly, "mypoly");
-  myScene.add(box, "mybox");
-  requestAnimationFrame(gameLoop);
-}
-
-init();
+new GameInstance(config);

@@ -27,8 +27,6 @@ export default class Polygon {
 
   public update(deltaTime: number): void {
     if (this.isRotating && this.#rotationDelta !== 0) this.rotate(deltaTime);
-    // this.pos.x += this.velocity.x * deltaTime;
-    // this.pos.y += this.velocity.y * deltaTime;
   }
 
   protected createVertices(verts: Vector2Snippet[]): Vector2[] {
