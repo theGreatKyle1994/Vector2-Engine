@@ -1,8 +1,5 @@
 import type Scene from "./Scene";
-
-export interface GameConfig {
-  scene: Scene;
-}
+import type { GameConfig } from "../types/EngineTypes";
 
 export default class GameInstance {
   private readonly canvas = document.querySelector(
@@ -24,7 +21,7 @@ export default class GameInstance {
 
   private updateCanvas(): void {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.currentScene.update(this.ctx, this.deltaTime);
+    this.currentScene.run(this.ctx, this.deltaTime);
   }
 
   private gameLoop(): void {

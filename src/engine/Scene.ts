@@ -1,6 +1,5 @@
-import Polygon from "../physics/primitives/Polygon";
-import Rectangle from "../physics/primitives/Rectangle";
 import ObjectHandler from "./ObjectHandler";
+import type { Shape } from "../types/EngineTypes";
 
 export default class Scene {
   #objectHandler = new ObjectHandler();
@@ -12,16 +11,25 @@ export default class Scene {
 
   protected init(): void {}
   protected create(): void {}
+  protected update(ctx: CanvasRenderingContext2D, deltaTime: number): void {}
 
-  public update(ctx: CanvasRenderingContext2D, deltaTime: number): void {
+  public run(ctx: CanvasRenderingContext2D, deltaTime: number): void {
+    this.update(ctx, deltaTime);
     this.#objectHandler.run(ctx, deltaTime);
   }
 
-  public add(object: Polygon | Rectangle, id: string): void {
+  public add(object: Shape, id: string): Shape {
     this.#objectHandler.addObject(object, id);
+    return object;
   }
 
   public remove(id: string): void {
     this.#objectHandler.removeObject(id);
+  }
+
+  public get(id: string): Shape {
+    return this.#objectHandler.objectList.filter((object) => {
+      if (object.id === id) return object;
+    })[0].current;
   }
 }

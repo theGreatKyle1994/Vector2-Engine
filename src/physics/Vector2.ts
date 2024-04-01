@@ -1,7 +1,4 @@
-export interface Vector2Snippet {
-  x: number;
-  y: number;
-}
+import type { Vector2Snippet } from "../types/EngineTypes";
 
 export default class Vector2 {
   public x: number;
