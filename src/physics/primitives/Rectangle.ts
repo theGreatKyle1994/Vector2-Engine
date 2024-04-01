@@ -1,4 +1,3 @@
-import { deltaTime } from "../../main";
 import Vector2 from "../Vector2";
 
 export default class Rectangle {
@@ -8,6 +7,8 @@ export default class Rectangle {
   public color: string;
   public vertices: Vector2[];
   public rotation: number = 0;
+  public rotationAngle: number = 0;
+  public isRotating: boolean = false;
   public velocity: Vector2 = new Vector2();
   constructor(
     x: number,
@@ -23,20 +24,30 @@ export default class Rectangle {
     this.vertices = this.getVertices();
   }
   public render(ctx: CanvasRenderingContext2D): void {
-    // ctx.fillStyle = this.color;
-    // ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height);
     ctx.beginPath();
     ctx.moveTo(this.vertices[0].x, this.vertices[0].y);
     ctx.lineTo(this.vertices[1].x, this.vertices[1].y);
     ctx.lineTo(this.vertices[2].x, this.vertices[2].y);
     ctx.lineTo(this.vertices[3].x, this.vertices[3].y);
     ctx.closePath();
-    ctx.lineWidth = 1;
     ctx.stroke();
   }
   public update(deltaTime: number): void {
-    this.pos.x += this.velocity.x * deltaTime;
-    this.pos.y += this.velocity.y * deltaTime;
+    if (this.isRotating) this.rotate(deltaTime);
+    // this.pos.x += this.velocity.x * deltaTime;
+    // this.pos.y += this.velocity.y * deltaTime;
+  }
+  protected rotate(deltaTime: number): void {
+    this.rotation += this.rotationAngle * deltaTime;
+    this.vertices = this.rotateMatrix(this.rotation);
+  }
+  public setRotation(angle: number): void {
+    this.rotationAngle = angle;
+    this.rotation = this.rotationAngle;
+    this.vertices = this.rotateMatrix(this.rotation);
+  }
+  public setIsRotating(isRotating: boolean): void {
+    this.isRotating = isRotating;
   }
   public getVertices(): Vector2[] {
     return [
@@ -96,13 +107,5 @@ export default class Rectangle {
       );
     }
     return rotatedVerts;
-  }
-  public rotate(angle: number): void {
-    this.rotation += angle * deltaTime;
-    this.vertices = this.rotateMatrix(this.rotation);
-  }
-  public setRotation(angle: number): void {
-    this.rotation = angle;
-    this.vertices = this.rotateMatrix(this.rotation);
   }
 }
