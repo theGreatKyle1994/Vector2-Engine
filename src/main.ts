@@ -1,6 +1,8 @@
 import Rectangle from "./physics/primitives/Rectangle";
 import Polygon from "./physics/primitives/Polygon";
+import ObjectHandler from "./engine/ObjectHandler";
 
+export const globalHandler = new ObjectHandler();
 const canvas = document.querySelector("canvas") as HTMLCanvasElement;
 const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
 const fps: number = 60;
@@ -13,15 +15,11 @@ const poly: Polygon = new Polygon([
   { x: 100, y: 0 },
   { x: 50, y: 85 },
 ]);
-
 const box: Rectangle = new Rectangle(100, 100, 100, 100);
 
 function updateCanvas(): void {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  poly.update(deltaTime);
-  box.update(deltaTime);
-  poly.render(ctx);
-  box.render(ctx);
+  globalHandler.run(ctx, deltaTime);
 }
 
 function gameLoop(currTime: number): void {
@@ -32,11 +30,8 @@ function gameLoop(currTime: number): void {
 }
 
 function init(): void {
-  poly.setRotation(-1);
-  poly.setIsRotating(true);
-  poly.setTransform(400, 400);
-  box.setRotation(1);
-  box.setIsRotating(true);
+  globalHandler.addObjects(poly);
+  globalHandler.addObjects(box);
   requestAnimationFrame(gameLoop);
 }
 

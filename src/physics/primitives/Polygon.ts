@@ -9,10 +9,12 @@ export default class Polygon {
   public rotationAngle: number = 0;
   public isRotating: boolean = false;
   public velocity: Vector2 = new Vector2();
+  
   constructor(vertices: Vector2Snippet[], color: string = "black") {
     this.vertices = this.createVertices(vertices);
     this.color = color;
   }
+
   public render(ctx: CanvasRenderingContext2D): void {
     ctx.beginPath();
     for (let i = 0; i < this.vertices.length; i++) {
@@ -22,11 +24,13 @@ export default class Polygon {
     ctx.closePath();
     ctx.stroke();
   }
+
   public update(deltaTime: number): void {
     if (this.isRotating && this.#rotationDelta !== 0) this.rotate(deltaTime);
     // this.pos.x += this.velocity.x * deltaTime;
     // this.pos.y += this.velocity.y * deltaTime;
   }
+
   protected createVertices(verts: Vector2Snippet[]): Vector2[] {
     const createdVerts: Vector2[] = [];
     for (let i = 0; i < verts.length; i++) {
@@ -34,26 +38,31 @@ export default class Polygon {
     }
     return createdVerts;
   }
+
   protected rotate(deltaTime: number): void {
     this.checkCurrentRotation();
     this.#rotationDelta = this.rotationAngle * deltaTime;
     this.vertices = this.rotateMatrix(this.#rotationDelta);
   }
+
   public setRotation(angle: number): void {
     this.rotationAngle = angle;
     this.checkCurrentRotation();
     this.#rotationDelta = this.rotationAngle;
     this.vertices = this.rotateMatrix(this.#rotationDelta);
   }
+
   public setIsRotating(isRotating: boolean): void {
     this.isRotating = isRotating;
   }
+
   protected checkCurrentRotation(): void {
     this.rotation += this.rotationAngle;
     while (this.rotation > 360) {
       this.rotation -= 360;
     }
   }
+
   protected rotateMatrix(angle: number): Vector2[] {
     const radians: number = (angle * Math.PI) / 180;
     const center: Vector2 = this.getCenterOrigin();
@@ -74,6 +83,7 @@ export default class Polygon {
     }
     return rotatedVerts;
   }
+
   public getCenterOrigin(): Vector2 {
     let centerX: number = 0;
     let centerY: number = 0;
@@ -86,6 +96,7 @@ export default class Polygon {
       y: centerY / this.vertices.length,
     });
   }
+
   protected getEdges(): Vector2[] {
     const edges: Vector2[] = [];
     for (let i = 0; i < this.vertices.length; i++) {
@@ -106,6 +117,7 @@ export default class Polygon {
     }
     return edges;
   }
+
   public setTransform(x: number, y: number): void {
     this.vertices.forEach((vert) => vert.addToSelf({ x, y }));
   }
