@@ -27,9 +27,7 @@ export default class Scene {
     this.#objectHandler.removeObject(id);
   }
 
-  public get(id: string): Shape {
-    return this.#objectHandler.objectList.filter((object) => {
-      if (object.id === id) return object;
-    })[0].current;
+  public get(id: string): Shape | undefined {
+    return this.#objectHandler.getObject(id);
   }
 }

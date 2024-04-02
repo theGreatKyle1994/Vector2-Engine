@@ -7,14 +7,8 @@ class myScene extends Scene {
     super();
   }
   protected create(): void {
-    const box = this.add(new Rectangle(200, 200, 100, 100), "box");
-    box.setIsRotating(true);
-    box.setRotation(1);
-    box.setRotationOrigin({ x: 400, y: 400 });
-    console.log(box);
-  }
-  protected update(ctx: CanvasRenderingContext2D, deltaTime: number): void {
-    const box = this.get("box");
+    const box = this.add(new Rectangle(300, 300, 100, 100), "box");
+    const box2 = this.add(new Rectangle(600, 600, 100, 100), "box2");
   }
 }
 

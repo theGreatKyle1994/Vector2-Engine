@@ -2,7 +2,7 @@ import type { Shape } from "../types/EngineTypes";
 import type { ObjectListItem } from "../types/EngineTypes";
 
 export default class ObjectHandler {
-  public objectList: Array<ObjectListItem> = [];
+  private objectList: Array<ObjectListItem> = [];
 
   public run(ctx: CanvasRenderingContext2D, deltaTime: number): void {
     for (let object of this.objectList) object.current.update(deltaTime);
@@ -13,12 +13,17 @@ export default class ObjectHandler {
     this.objectList.push({ current: newObject, id });
   }
 
+  public getObject(id: string): Shape | undefined {
+    for (let i = 0; i < this.objectList.length; i++) {
+      if (this.objectList[i].id === id) return this.objectList[i].current;
+    }
+    return undefined;
+  }
+
   public removeObject(id: string): void {
-    console.log(this.objectList);
     const index: number = this.objectList.findIndex((object) => {
       if (object.id === id) return object;
     });
     this.objectList.splice(index, 1);
-    console.log(this.objectList);
   }
 }

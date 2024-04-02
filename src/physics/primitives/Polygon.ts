@@ -6,11 +6,11 @@ export default class Polygon {
   public vertices: Vector2[];
   public origin: Vector2;
   public rotation: number = 0;
-  #rotationDelta: number = 0;
+  public rotationDelta: number = 0;
   public rotationAngle: number = 0;
   public rotationOrigin: Vector2;
-  public isRotating: boolean = false;
-  public isUsingRotationOrigin: boolean = false;
+  private isRotating: boolean = false;
+  private isUsingRotationOrigin: boolean = false;
   public velocity: Vector2 = new Vector2();
 
   constructor(vertices: Vector2Snippet[], color: string = "black") {
@@ -22,9 +22,7 @@ export default class Polygon {
 
   public render(ctx: CanvasRenderingContext2D): void {
     ctx.beginPath();
-    for (let i = 0; i < this.vertices.length; i++) {
-      ctx.lineTo(this.vertices[i].x, this.vertices[i].y);
-    }
+    this.vertices.forEach((vert) => ctx.lineTo(vert.x, vert.y));
     ctx.strokeStyle = this.color;
     ctx.closePath();
     ctx.stroke();
@@ -32,37 +30,37 @@ export default class Polygon {
 
   public update(deltaTime: number): void {
     this.origin = this.getCenterOrigin();
-    if (this.isRotating && this.#rotationDelta !== 0) this.rotate(deltaTime);
+    if (this.isRotating && this.rotationDelta !== 0) this.rotate(deltaTime);
   }
 
   private createVertices(verts: Vector2Snippet[]): Vector2[] {
-    const createdVerts: Vector2[] = [];
-    for (let i = 0; i < verts.length; i++) {
-      createdVerts.push(new Vector2({ x: verts[i].x, y: verts[i].y }));
-    }
-    return createdVerts;
+    return verts.map((vert) => new Vector2({ x: vert.x, y: vert.y }));
   }
 
   private rotate(deltaTime: number): void {
     this.checkCurrentRotation();
-    this.#rotationDelta = this.rotationAngle * deltaTime;
-    this.vertices = this.rotateMatrix(this.#rotationDelta);
+    this.rotationDelta = this.rotationAngle * deltaTime;
+    this.vertices = this.rotateMatrix(this.rotationDelta);
   }
 
   public setRotation(angle: number): void {
     this.rotationAngle = angle;
     this.checkCurrentRotation();
-    this.#rotationDelta = this.rotationAngle;
-    this.vertices = this.rotateMatrix(this.#rotationDelta);
+    this.rotationDelta = this.rotationAngle;
+    this.vertices = this.rotateMatrix(this.rotationDelta);
   }
 
   public setIsRotating(isRotating: boolean): void {
     this.isRotating = isRotating;
   }
 
-  public setRotationOrigin(origin: Vector2Snippet): void {
+  public setRotationOrigin(x: number, y: number): void {
     this.isUsingRotationOrigin = true;
-    this.rotationOrigin = new Vector2({ x: origin.x, y: origin.y });
+    this.rotationOrigin = new Vector2({ x, y });
+  }
+
+  public setIsUsingRotationOrigin(isUsingOrigin: boolean): void {
+    this.isUsingRotationOrigin = isUsingOrigin;
   }
 
   private checkCurrentRotation(): void {
@@ -77,22 +75,19 @@ export default class Polygon {
     const center: Vector2 = this.isUsingRotationOrigin
       ? this.rotationOrigin
       : this.getCenterOrigin();
-    const rotatedVerts: Vector2[] = [];
-    for (let i = 0; i < this.vertices.length; i++) {
-      rotatedVerts.push(
+    return this.vertices.map(
+      (vert) =>
         new Vector2({
           x:
-            (this.vertices[i].x - center.x) * Math.cos(radians) -
-            (this.vertices[i].y - center.y) * Math.sin(radians) +
+            (vert.x - center.x) * Math.cos(radians) -
+            (vert.y - center.y) * Math.sin(radians) +
             center.x,
           y:
-            (this.vertices[i].y - center.y) * Math.cos(radians) +
-            (this.vertices[i].x - center.x) * Math.sin(radians) +
+            (vert.y - center.y) * Math.cos(radians) +
+            (vert.x - center.x) * Math.sin(radians) +
             center.y,
         })
-      );
-    }
-    return rotatedVerts;
+    );
   }
 
   public getCenterOrigin(): Vector2 {
