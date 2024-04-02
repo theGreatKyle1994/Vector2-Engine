@@ -13,7 +13,15 @@ export default class Polygon {
   private isUsingRotationOrigin: boolean = false;
   public velocity: Vector2 = new Vector2();
 
-  constructor(vertices: Vector2Snippet[], color: string = "black") {
+  constructor(
+    vertices: [
+      Vector2Snippet,
+      Vector2Snippet,
+      Vector2Snippet,
+      ...Vector2Snippet[]
+    ],
+    color: string = "black"
+  ) {
     this.vertices = this.createVertices(vertices);
     this.origin = this.getCenterOrigin();
     this.rotationOrigin = this.origin;
