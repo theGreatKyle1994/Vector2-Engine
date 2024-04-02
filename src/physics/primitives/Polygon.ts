@@ -1,17 +1,22 @@
 import Vector2 from "../Vector2";
-import type { Vector2Snippet } from "../Vector2";
+import type { Vector2Snippet } from "../../types/EngineTypes";
 
 export default class Polygon {
   public color: string;
   public vertices: Vector2[];
+  public origin: Vector2;
   public rotation: number = 0;
   #rotationDelta: number = 0;
   public rotationAngle: number = 0;
+  public rotationOrigin: Vector2;
   public isRotating: boolean = false;
+  public isUsingRotationOrigin: boolean = false;
   public velocity: Vector2 = new Vector2();
-  
+
   constructor(vertices: Vector2Snippet[], color: string = "black") {
     this.vertices = this.createVertices(vertices);
+    this.origin = this.getCenterOrigin();
+    this.rotationOrigin = this.origin;
     this.color = color;
   }
 
@@ -26,10 +31,11 @@ export default class Polygon {
   }
 
   public update(deltaTime: number): void {
+    this.origin = this.getCenterOrigin();
     if (this.isRotating && this.#rotationDelta !== 0) this.rotate(deltaTime);
   }
 
-  protected createVertices(verts: Vector2Snippet[]): Vector2[] {
+  private createVertices(verts: Vector2Snippet[]): Vector2[] {
     const createdVerts: Vector2[] = [];
     for (let i = 0; i < verts.length; i++) {
       createdVerts.push(new Vector2({ x: verts[i].x, y: verts[i].y }));
@@ -37,7 +43,7 @@ export default class Polygon {
     return createdVerts;
   }
 
-  protected rotate(deltaTime: number): void {
+  private rotate(deltaTime: number): void {
     this.checkCurrentRotation();
     this.#rotationDelta = this.rotationAngle * deltaTime;
     this.vertices = this.rotateMatrix(this.#rotationDelta);
@@ -54,16 +60,23 @@ export default class Polygon {
     this.isRotating = isRotating;
   }
 
-  protected checkCurrentRotation(): void {
+  public setRotationOrigin(origin: Vector2Snippet): void {
+    this.isUsingRotationOrigin = true;
+    this.rotationOrigin = new Vector2({ x: origin.x, y: origin.y });
+  }
+
+  private checkCurrentRotation(): void {
     this.rotation += this.rotationAngle;
     while (this.rotation > 360) {
       this.rotation -= 360;
     }
   }
 
-  protected rotateMatrix(angle: number): Vector2[] {
+  private rotateMatrix(angle: number): Vector2[] {
     const radians: number = (angle * Math.PI) / 180;
-    const center: Vector2 = this.getCenterOrigin();
+    const center: Vector2 = this.isUsingRotationOrigin
+      ? this.rotationOrigin
+      : this.getCenterOrigin();
     const rotatedVerts: Vector2[] = [];
     for (let i = 0; i < this.vertices.length; i++) {
       rotatedVerts.push(

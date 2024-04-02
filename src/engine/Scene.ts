@@ -2,7 +2,7 @@ import ObjectHandler from "./ObjectHandler";
 import type { Shape } from "../types/EngineTypes";
 
 export default class Scene {
-  #objectHandler = new ObjectHandler();
+  #objectHandler: ObjectHandler = new ObjectHandler();
 
   constructor() {
     this.init();
