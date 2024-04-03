@@ -11,8 +11,11 @@ export default class Triangle extends Polygon {
     super(
       [
         { x, y },
-        { x: x + width / 2, y: y + height },
-        { x: x - width / 2, y: y + height },
+        { x: x + width, y },
+        {
+          x: (x + x + width) / 2 + Math.sin((60 * Math.PI) / 180) * (y - y),
+          y: (y + y) / 2 + Math.sin((60 * Math.PI) / 180) * (x - x + width),
+        },
       ],
       color
     );
