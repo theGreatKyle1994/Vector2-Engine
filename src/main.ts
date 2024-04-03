@@ -9,9 +9,8 @@ class myScene extends Scene {
   protected create(): void {
     const tri = this.add(new Triangle(150, 150, 100), "tri");
     tri.setIsRotating(true);
-    tri.setRotation(1);
-    tri.setRotationOrigin(400, 400);
-    tri.setIsUsingRotationOrigin(true);
+    tri.setFixedRotation(180);
+    // tri.setRotation(1);
   }
   protected update(ctx: CanvasRenderingContext2D, deltaTime: number): void {}
 }

@@ -58,6 +58,10 @@ export default class Polygon {
     this.vertices = this.rotateMatrix(this.rotationDelta);
   }
 
+  public setFixedRotation(angle: number): void {
+    this.vertices = this.rotateMatrix(angle);
+  }
+
   public setIsRotating(isRotating: boolean): void {
     this.isRotating = isRotating;
   }
