@@ -63,7 +63,6 @@ export default class Polygon {
   }
 
   public setRotationOrigin(x: number, y: number): void {
-    this.isUsingRotationOrigin = true;
     this.rotationOrigin = new Vector2({ x, y });
   }
 

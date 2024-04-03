@@ -7,8 +7,11 @@ class myScene extends Scene {
     super();
   }
   protected create(): void {
-    const tri = this.add(new Triangle(400, 400, 400, 400), "tri");
-    tri.setRotation(180);
+    const tri = this.add(new Triangle(150, 150, 100), "tri");
+    tri.setIsRotating(true);
+    tri.setRotation(1);
+    tri.setRotationOrigin(400, 400);
+    tri.setIsUsingRotationOrigin(true);
   }
   protected update(ctx: CanvasRenderingContext2D, deltaTime: number): void {}
 }
