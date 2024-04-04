@@ -10,7 +10,7 @@ export interface Vector2Snippet {
   y: number;
 }
 
-export type Shape = Polygon | Rectangle;
+export type Shape = Polygon | Rectangle | Triangle;
 
 export interface ObjectListItem {
   current: Shape;
