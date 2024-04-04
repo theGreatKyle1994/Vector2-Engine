@@ -1,15 +1,10 @@
 import GeometricShape from "./GeometricShape";
 import Vector2 from "../Vector2";
 import type { Vector2Snippet } from "../../types/EngineTypes";
+import EngineMath from "../EngineMath";
 
 export default class Polygon extends GeometricShape {
   public vertices: Vector2[];
-  public rotation: number = 0;
-  public rotationDelta: number = 0;
-  public rotationAngle: number = 0;
-  public rotationOrigin: Vector2;
-  private isRotating: boolean = false;
-  private isUsingRotationOrigin: boolean = false;
 
   constructor(
     vertices: [
@@ -22,7 +17,6 @@ export default class Polygon extends GeometricShape {
     super(vertices[0].x, vertices[0].y);
     this.vertices = this.createVertices(vertices);
     this.origin = this.getCenterOrigin();
-    this.rotationOrigin = this.origin;
   }
 
   public render(ctx: CanvasRenderingContext2D): void {
@@ -37,20 +31,17 @@ export default class Polygon extends GeometricShape {
     if (this.isRotating && this.rotationDelta !== 0) this.rotate(deltaTime);
   }
 
+  protected rotate(deltaTime: number): void {
+    super.rotate(deltaTime);
+    this.vertices = this.rotateMatrix(this.rotationDelta);
+  }
+
   private createVertices(verts: Vector2Snippet[]): Vector2[] {
     return verts.map((vert) => new Vector2({ x: vert.x, y: vert.y }));
   }
 
-  private rotate(deltaTime: number): void {
-    this.checkCurrentRotation();
-    this.rotationDelta = this.rotationAngle * deltaTime;
-    this.vertices = this.rotateMatrix(this.rotationDelta);
-  }
-
   public setRotation(angle: number): void {
-    this.rotationAngle = angle;
-    this.checkCurrentRotation();
-    this.rotationDelta = this.rotationAngle;
+    super.setRotation(angle);
     this.vertices = this.rotateMatrix(this.rotationDelta);
   }
 
@@ -58,27 +49,8 @@ export default class Polygon extends GeometricShape {
     this.vertices = this.rotateMatrix(angle);
   }
 
-  public setIsRotating(isRotating: boolean): void {
-    this.isRotating = isRotating;
-  }
-
-  public setRotationOrigin(x: number, y: number): void {
-    this.rotationOrigin = new Vector2({ x, y });
-  }
-
-  public setIsUsingRotationOrigin(isUsingOrigin: boolean): void {
-    this.isUsingRotationOrigin = isUsingOrigin;
-  }
-
-  private checkCurrentRotation(): void {
-    this.rotation += this.rotationAngle;
-    while (this.rotation > 360) {
-      this.rotation -= 360;
-    }
-  }
-
   private rotateMatrix(angle: number): Vector2[] {
-    const radians: number = (angle * Math.PI) / 180;
+    const radians: number = EngineMath.toRadians(angle);
     const center: Vector2 = this.isUsingRotationOrigin
       ? this.rotationOrigin
       : this.getCenterOrigin();
@@ -135,7 +107,7 @@ export default class Polygon extends GeometricShape {
     this.vertices.forEach((vert) => vert.addToSelf({ x, y }));
   }
 
-  public setStaticTransform(x: number, y: number): void {
+  public setFixedTransform(x: number, y: number): void {
     const distX: number = this.vertices[0].x - x;
     const distY: number = this.vertices[0].y - y;
     this.vertices.forEach((vert, i) => {
