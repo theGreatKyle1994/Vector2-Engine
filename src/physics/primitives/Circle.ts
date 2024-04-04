@@ -4,9 +4,9 @@ import GeometricShape from "./GeometricShape";
 export default class Circle extends GeometricShape {
   public diameter: number;
   public radius: number;
-  public startAngle: number;
-  public endAngle: number;
-  public counterClock: boolean;
+  private startAngle: number;
+  private endAngle: number;
+  private counterClock: boolean;
 
   constructor(
     x: number,

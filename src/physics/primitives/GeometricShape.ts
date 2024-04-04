@@ -16,7 +16,7 @@ export default abstract class GeometricShape {
   }
 
   public render(ctx: CanvasRenderingContext2D): void {}
-  
+
   public update(deltaTime: number): void {
     if (this.isRotating && this.rotationDelta !== 0) this.rotate(deltaTime);
   }
@@ -31,7 +31,7 @@ export default abstract class GeometricShape {
     this.origin = EngineMath.rotateMatrix(
       angle,
       this.origin,
-      this.rotationOrigin
+      this.getRotationOrigin()
     );
   }
 
@@ -58,7 +58,7 @@ export default abstract class GeometricShape {
   }
 
   public setRotationOrigin(x: number, y: number): void {
-    this.rotationOrigin = new Vector2({ x, y });
+    this.rotationOrigin.setSelf({ x, y });
   }
 
   public setIsUsingRotationOrigin(isUsingOrigin: boolean): void {

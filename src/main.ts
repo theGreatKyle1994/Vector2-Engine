@@ -11,21 +11,19 @@ class myScene extends Scene {
   protected create(): void {
     const circle: Circle = this.add(new Circle(150, 150, 25), "circle");
     circle.setRotation(0.5);
-    circle.setIsRotating(true);
     circle.setRotationOrigin(400, 400);
     circle.setIsUsingRotationOrigin(true);
-
-    const rect: Rectangle = this.add(new Rectangle(200, 200, 100, 100), "rect");
+    circle.setIsRotating(true);
+    const rect: Rectangle = this.add(new Rectangle(225, 225, 100, 100), "rect");
     rect.setRotation(1);
-    rect.setIsRotating(true);
     rect.setRotationOrigin(400, 400);
     rect.setIsUsingRotationOrigin(true);
-
+    rect.setIsRotating(true);
     const tri: Triangle = this.add(new Triangle(400, 400, 100), "tri");
     tri.setRotation(2);
-    tri.setIsRotating(true);
     tri.setRotationOrigin(400, 400);
     tri.setIsUsingRotationOrigin(true);
+    tri.setIsRotating(true);
   }
   protected update(ctx: CanvasRenderingContext2D, deltaTime: number): void {}
 }
