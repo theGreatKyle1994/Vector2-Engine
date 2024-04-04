@@ -28,45 +28,17 @@ export default class Polygon extends GeometricShape {
 
   public update(deltaTime: number): void {
     this.origin = this.getCenterOrigin();
-    if (this.isRotating && this.rotationDelta !== 0) this.rotate(deltaTime);
+    super.update(deltaTime);
   }
 
-  protected rotate(deltaTime: number): void {
-    super.rotate(deltaTime);
-    this.vertices = this.rotateMatrix(this.rotationDelta);
+  protected doRotate(angle: number): void {
+    this.vertices = this.vertices.map((vert) =>
+      EngineMath.rotateMatrix(angle, vert, this.getRotationOrigin())
+    );
   }
 
   private createVertices(verts: Vector2Snippet[]): Vector2[] {
     return verts.map((vert) => new Vector2({ x: vert.x, y: vert.y }));
-  }
-
-  public setRotation(angle: number): void {
-    super.setRotation(angle);
-    this.vertices = this.rotateMatrix(this.rotationDelta);
-  }
-
-  public setFixedRotation(angle: number): void {
-    this.vertices = this.rotateMatrix(angle);
-  }
-
-  private rotateMatrix(angle: number): Vector2[] {
-    const radians: number = EngineMath.toRadians(angle);
-    const center: Vector2 = this.isUsingRotationOrigin
-      ? this.rotationOrigin
-      : this.getCenterOrigin();
-    return this.vertices.map(
-      (vert) =>
-        new Vector2({
-          x:
-            (vert.x - center.x) * Math.cos(radians) -
-            (vert.y - center.y) * Math.sin(radians) +
-            center.x,
-          y:
-            (vert.y - center.y) * Math.cos(radians) +
-            (vert.x - center.x) * Math.sin(radians) +
-            center.y,
-        })
-    );
   }
 
   public getCenterOrigin(): Vector2 {

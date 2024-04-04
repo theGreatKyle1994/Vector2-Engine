@@ -36,6 +36,4 @@ export default class Circle extends GeometricShape {
     );
     ctx.stroke();
   }
-
-  public update(deltaTime: number): void {}
 }
