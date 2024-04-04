@@ -1,11 +1,13 @@
+import GeometricShape from "./GeometricShape";
 import Vector2 from "../Vector2";
 
-export default class Circle {
+export default class Circle extends GeometricShape {
   public pos: Vector2;
   public size: number;
   public color: string;
 
   constructor(x: number, y: number, size: number, color: string = "black") {
+    super(x, y, color);
     this.pos = new Vector2({ x, y });
     this.size = size;
     this.color = color;

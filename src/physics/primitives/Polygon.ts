@@ -1,17 +1,15 @@
+import GeometricShape from "./GeometricShape";
 import Vector2 from "../Vector2";
 import type { Vector2Snippet } from "../../types/EngineTypes";
 
-export default class Polygon {
-  public color: string;
+export default class Polygon extends GeometricShape {
   public vertices: Vector2[];
-  public origin: Vector2;
   public rotation: number = 0;
   public rotationDelta: number = 0;
   public rotationAngle: number = 0;
   public rotationOrigin: Vector2;
   private isRotating: boolean = false;
   private isUsingRotationOrigin: boolean = false;
-  public velocity: Vector2 = new Vector2();
 
   constructor(
     vertices: [
@@ -22,6 +20,7 @@ export default class Polygon {
     ],
     color: string = "black"
   ) {
+    super(vertices[0].x, vertices[0].y, color);
     this.vertices = this.createVertices(vertices);
     this.origin = this.getCenterOrigin();
     this.rotationOrigin = this.origin;
@@ -137,5 +136,15 @@ export default class Polygon {
 
   public setTransform(x: number, y: number): void {
     this.vertices.forEach((vert) => vert.addToSelf({ x, y }));
+  }
+
+  public setStaticTransform(x: number, y: number): void {
+    const distX: number = this.vertices[0].x - x;
+    const distY: number = this.vertices[0].y - y;
+    this.vertices.forEach((vert, i) => {
+      if (i === 0) {
+        vert.setSelf({ x, y });
+      } else vert.subToSelf({ x: distX, y: distY });
+    });
   }
 }
