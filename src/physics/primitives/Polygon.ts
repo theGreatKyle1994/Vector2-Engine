@@ -17,20 +17,17 @@ export default class Polygon extends GeometricShape {
       Vector2Snippet,
       Vector2Snippet,
       ...Vector2Snippet[]
-    ],
-    color: string = "black"
+    ]
   ) {
-    super(vertices[0].x, vertices[0].y, color);
+    super(vertices[0].x, vertices[0].y);
     this.vertices = this.createVertices(vertices);
     this.origin = this.getCenterOrigin();
     this.rotationOrigin = this.origin;
-    this.color = color;
   }
 
   public render(ctx: CanvasRenderingContext2D): void {
     ctx.beginPath();
     this.vertices.forEach((vert) => ctx.lineTo(vert.x, vert.y));
-    ctx.strokeStyle = this.color;
     ctx.closePath();
     ctx.stroke();
   }

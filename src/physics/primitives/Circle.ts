@@ -1,22 +1,18 @@
 import GeometricShape from "./GeometricShape";
-import Vector2 from "../Vector2";
 
 export default class Circle extends GeometricShape {
-  public pos: Vector2;
-  public size: number;
-  public color: string;
+  public diameter: number;
+  public radius: number;
 
-  constructor(x: number, y: number, size: number, color: string = "black") {
-    super(x, y, color);
-    this.pos = new Vector2({ x, y });
-    this.size = size;
-    this.color = color;
+  constructor(x: number, y: number, diameter: number) {
+    super(x, y);
+    this.diameter = diameter;
+    this.radius = this.diameter / 2;
   }
 
   public render(ctx: CanvasRenderingContext2D): void {
     ctx.beginPath();
-    ctx.arc(this.pos.x, this.pos.y, this.size, 0, Math.PI * 2);
-    ctx.strokeStyle = this.color;
+    ctx.arc(this.origin.x, this.origin.y, this.diameter, 0, Math.PI * 2);
     ctx.stroke();
   }
 
