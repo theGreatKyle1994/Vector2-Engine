@@ -1,3 +1,4 @@
+import EngineMath from "../EngineMath";
 import Polygon from "./Polygon";
 
 export default class Triangle extends Polygon {
@@ -6,8 +7,8 @@ export default class Triangle extends Polygon {
       { x, y },
       { x: x + size, y },
       {
-        x: (x * 2 + size) / 2 + Math.sin((60 * Math.PI) / 180),
-        y: (y * 2) / 2 + Math.sin((60 * Math.PI) / 180) * size,
+        x: (x * 2 + size) / 2 + Math.sin(EngineMath.toRadians(60)),
+        y: (y * 2) / 2 + Math.sin(EngineMath.toRadians(60)) * size,
       },
     ]);
   }
