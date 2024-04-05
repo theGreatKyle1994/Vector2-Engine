@@ -32,9 +32,14 @@ export default class Polygon extends GeometricShape {
   }
 
   protected doRotate(angle: number): void {
-    this.vertices = this.vertices.map((vert) =>
-      EngineMath.rotateMatrix(angle, vert, this.getRotationOrigin())
-    );
+    const rotateVerts = (origin: Vector2): Vector2[] => {
+      return this.vertices.map((vert) =>
+        EngineMath.rotateMatrix(angle, vert, origin)
+      );
+    };
+    if (this.isRotatingFromSelf) this.vertices = rotateVerts(this.origin);
+    if (this.isRotatingFromOrigin)
+      this.vertices = rotateVerts(this.rotationOrigin);
   }
 
   private createVertices(verts: Vector2Snippet[]): Vector2[] {

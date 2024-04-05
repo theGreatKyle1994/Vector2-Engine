@@ -36,4 +36,18 @@ export default class Circle extends GeometricShape {
     );
     ctx.stroke();
   }
+
+  protected doRotate(angle: number): void {
+    super.doRotate(angle);
+    if (this.isRotatingFromSelf) {
+      this.startAngle += EngineMath.degreesToRadians(this.rotationDelta);
+      this.endAngle += EngineMath.degreesToRadians(this.rotationDelta);
+    }
+    if (this.isRotatingFromOrigin)
+      this.origin = EngineMath.rotateMatrix(
+        angle,
+        this.origin,
+        this.rotationOrigin
+      );
+  }
 }
