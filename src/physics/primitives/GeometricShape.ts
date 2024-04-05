@@ -4,6 +4,8 @@ import Vector2 from "../Vector2";
 export default abstract class GeometricShape {
   public origin: Vector2;
   public rotation: number = 0;
+  public rotationSelfDirection: number = 1;
+  public rotationOriginDirection: number = 1;
   public rotationAngle: number = 0;
   public isRotatingFromSelf: boolean = true;
   public isRotatingFromOrigin: boolean = false;
@@ -32,7 +34,11 @@ export default abstract class GeometricShape {
   }
 
   protected doRotate(angle: number): void {
-    this.origin = EngineMath.rotateMatrix(angle, this.origin, this.origin);
+    this.origin = EngineMath.rotateMatrix(
+      angle * this.rotationOriginDirection,
+      this.origin,
+      this.origin
+    );
   }
 
   public setRotation(angle: number): void {
@@ -61,6 +67,14 @@ export default abstract class GeometricShape {
 
   public setIsRotatingFromOrigin(isRotatingFromOrigin: boolean): void {
     this.isRotatingFromOrigin = isRotatingFromOrigin;
+  }
+
+  public setSelfRotationMult(mult: number): void {
+    this.rotationSelfDirection = mult;
+  }
+
+  public setOriginRotationMult(mult: number): void {
+    this.rotationOriginDirection = mult;
   }
 
   public getCenterOrigin(): Vector2 {
