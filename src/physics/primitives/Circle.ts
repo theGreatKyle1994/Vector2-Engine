@@ -40,12 +40,16 @@ export default class Circle extends GeometricShape {
   protected doRotate(angle: number): void {
     super.doRotate(angle);
     if (this.isRotatingFromSelf) {
-      this.startAngle += EngineMath.degreesToRadians(this.rotationDelta);
-      this.endAngle += EngineMath.degreesToRadians(this.rotationDelta);
+      this.startAngle += EngineMath.degreesToRadians(
+        this.rotationDelta * this.rotationSelfDirection
+      );
+      this.endAngle += EngineMath.degreesToRadians(
+        this.rotationDelta * this.rotationSelfDirection
+      );
     }
     if (this.isRotatingFromOrigin)
       this.origin = EngineMath.rotateMatrix(
-        angle,
+        angle * this.rotationOriginDirection,
         this.origin,
         this.rotationOrigin
       );
