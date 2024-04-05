@@ -7,8 +7,8 @@ export default class Triangle extends Polygon {
       { x, y },
       { x: x + size, y },
       {
-        x: (x * 2 + size) / 2 + Math.sin(EngineMath.toRadians(60)),
-        y: (y * 2) / 2 + Math.sin(EngineMath.toRadians(60)) * size,
+        x: (x * 2 + size) / 2 + Math.sin(EngineMath.degreesToRadians(60)),
+        y: (y * 2) / 2 + Math.sin(EngineMath.degreesToRadians(60)) * size,
       },
     ]);
   }

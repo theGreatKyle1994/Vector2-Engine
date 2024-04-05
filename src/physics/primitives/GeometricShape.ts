@@ -4,7 +4,7 @@ import Vector2 from "../Vector2";
 export default abstract class GeometricShape {
   public origin: Vector2;
   public rotation: number = 0;
-  public rotationDelta: number = 0;
+  protected rotationDelta: number = 0;
   public rotationAngle: number = 0;
   public rotationOrigin: Vector2;
   public isRotating: boolean = false;

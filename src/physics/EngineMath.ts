@@ -1,16 +1,16 @@
 import Vector2 from "./Vector2";
 
 export default abstract class EngineMath {
-  static toRadians(angle: number): number {
+  static degreesToRadians(angle: number): number {
     return (angle * Math.PI) / 180;
   }
 
-  static toDegrees(angle: number): number {
+  static RadiensToDegrees(angle: number): number {
     return (angle * 180) / Math.PI;
   }
 
   static rotateMatrix(angle: number, vec: Vector2, origin: Vector2): Vector2 {
-    const radians: number = EngineMath.toRadians(angle);
+    const radians: number = EngineMath.degreesToRadians(angle);
     return new Vector2({
       x:
         (vec.x - origin.x) * Math.cos(radians) -

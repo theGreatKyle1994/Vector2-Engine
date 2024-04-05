@@ -19,8 +19,8 @@ export default class Circle extends GeometricShape {
     super(x, y);
     this.diameter = diameter;
     this.radius = this.diameter / 2;
-    this.startAngle = EngineMath.toRadians(startAngle);
-    this.endAngle = EngineMath.toRadians(endAngle);
+    this.startAngle = EngineMath.degreesToRadians(startAngle);
+    this.endAngle = EngineMath.degreesToRadians(endAngle);
     this.counterClock = counterClock;
   }
 
