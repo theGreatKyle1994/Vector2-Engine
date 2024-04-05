@@ -22,6 +22,7 @@ export default class Circle extends GeometricShape {
     this.startAngle = EngineMath.degreesToRadians(startAngle);
     this.endAngle = EngineMath.degreesToRadians(endAngle);
     this.counterClock = counterClock;
+    this.isRotatingFromSelf = false;
   }
 
   public render(ctx: CanvasRenderingContext2D): void {
