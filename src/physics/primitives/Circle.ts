@@ -55,4 +55,15 @@ export default class Circle extends GeometricShape {
         this.rotationOrigin
       );
   }
+
+  public setScale(scaler: number): void {
+    if (this.isScalingFromSelf) this.diameter *= scaler;
+    if (this.isScalingFromOrigin) {
+      this.diameter *= scaler;
+      this.origin.x =
+        scaler * (this.origin.x - this.scaleOrigin.x) + this.scaleOrigin.x;
+      this.origin.y =
+        scaler * (this.origin.y - this.scaleOrigin.y) + this.scaleOrigin.y;
+    }
+  }
 }

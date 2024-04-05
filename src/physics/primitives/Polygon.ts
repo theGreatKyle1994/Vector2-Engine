@@ -97,4 +97,19 @@ export default class Polygon extends GeometricShape {
       } else vert.subToSelf({ x: distX, y: distY });
     });
   }
+
+  public setScale(scaler: number): void {
+    if (this.isScalingFromSelf) {
+      this.vertices.forEach((vert) => {
+        vert.x = scaler * (vert.x - this.origin.x) + this.origin.x;
+        vert.y = scaler * (vert.y - this.origin.y) + this.origin.y;
+      });
+    }
+    if (this.isScalingFromOrigin) {
+      this.vertices.forEach((vert) => {
+        vert.x = scaler * (vert.x - this.scaleOrigin.x) + this.scaleOrigin.x;
+        vert.y = scaler * (vert.y - this.scaleOrigin.y) + this.scaleOrigin.y;
+      });
+    }
+  }
 }

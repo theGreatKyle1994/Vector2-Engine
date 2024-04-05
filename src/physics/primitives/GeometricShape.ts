@@ -7,14 +7,18 @@ export default abstract class GeometricShape {
   public rotationSelfDirection: number = 1;
   public rotationOriginDirection: number = 1;
   public rotationAngle: number = 0;
+  public rotationOrigin: Vector2;
   public isRotatingFromSelf: boolean = true;
   public isRotatingFromOrigin: boolean = false;
   protected rotationDelta: number = 0;
-  public rotationOrigin: Vector2;
+  public scaleOrigin: Vector2;
+  public isScalingFromSelf: boolean = true;
+  public isScalingFromOrigin: boolean = false;
 
   constructor(x: number, y: number) {
     this.origin = new Vector2({ x, y });
     this.rotationOrigin = this.origin;
+    this.scaleOrigin = new Vector2({ x: this.origin.x, y: this.origin.y });
   }
 
   public render(ctx: CanvasRenderingContext2D): void {}
@@ -25,6 +29,7 @@ export default abstract class GeometricShape {
       this.rotationDelta !== 0
     )
       this.rotate(deltaTime);
+    this.scaleOrigin = this.getCenterOrigin();
   }
 
   protected rotate(deltaTime: number): void {
@@ -61,14 +66,6 @@ export default abstract class GeometricShape {
     while (this.rotation > 360) this.rotation -= 360;
   }
 
-  public setIsRotatingFromSelf(isRotatingFromSelf: boolean): void {
-    this.isRotatingFromSelf = isRotatingFromSelf;
-  }
-
-  public setIsRotatingFromOrigin(isRotatingFromOrigin: boolean): void {
-    this.isRotatingFromOrigin = isRotatingFromOrigin;
-  }
-
   public setSelfRotationMult(mult: number): void {
     this.rotationSelfDirection = mult;
   }
@@ -86,6 +83,14 @@ export default abstract class GeometricShape {
   }
 
   public setFixedTransform(x: number, y: number): void {
-    this.origin = new Vector2({ x, y });
+    this.origin.setSelf({ x, y });
+  }
+
+  public setScale(scaler: number): void {
+    if (this.isScalingFromOrigin) this.origin.multToSelf(scaler);
+  }
+
+  public setScaleOrigin(x: number, y: number): void {
+    this.scaleOrigin.setSelf({ x, y });
   }
 }
