@@ -1,4 +1,4 @@
-import type { ScaleConfig } from "../../types/EngineTypes";
+import type { RotationConfig, ScaleConfig } from "../../types/EngineTypes";
 import EngineMath from "../EngineMath";
 import Vector2 from "../Vector2";
 
@@ -9,12 +9,12 @@ export default abstract class GeometricShape {
   public rotationOriginDirection: number = 1;
   public rotationAngle: number = 0;
   public rotationOrigin: Vector2;
-  public isRotatingFromSelf: boolean = true;
+  public isRotatingFromSelf: boolean = false;
   public isRotatingFromOrigin: boolean = false;
   protected rotationDelta: number = 0;
   public scale: number = 1;
   public scaleOrigin: Vector2;
-  protected isScalingFromSelf: boolean = true;
+  protected isScalingFromSelf: boolean = false;
   protected isScalingFromOrigin: boolean = false;
 
   constructor(x: number, y: number) {
@@ -32,6 +32,10 @@ export default abstract class GeometricShape {
     )
       this.rotate(deltaTime);
     this.scaleOrigin = this.getCenterOrigin();
+  }
+
+  public getCenterOrigin(): Vector2 {
+    return this.origin;
   }
 
   protected rotate(deltaTime: number): void {
@@ -76,8 +80,27 @@ export default abstract class GeometricShape {
     this.rotationOriginDirection = mult;
   }
 
-  public getCenterOrigin(): Vector2 {
-    return this.origin;
+  public setRotationConfig(rotationConfig: RotationConfig): void {
+    if (rotationConfig.origin) {
+      if (rotationConfig.origin.source) {
+        this.setRotationOrigin(
+          rotationConfig.origin.source.x,
+          rotationConfig.origin.source.y
+        );
+      }
+      if (typeof rotationConfig.origin.use === "boolean")
+        this.isRotatingFromOrigin = rotationConfig.origin.use;
+      if (typeof rotationConfig.origin.directionScaler === "number")
+        this.setOriginRotationMult(rotationConfig.origin.directionScaler);
+    }
+    if (rotationConfig.self) {
+      if (typeof rotationConfig.self.use === "boolean")
+        this.isRotatingFromSelf = rotationConfig.self.use;
+      if (typeof rotationConfig.self.directionScaler === "number")
+        this.setSelfRotationMult(rotationConfig.self.directionScaler);
+    }
+    if (typeof rotationConfig.angle === "number")
+      this.setRotation(rotationConfig.angle);
   }
 
   public setTransform(x: number, y: number): void {
@@ -100,16 +123,19 @@ export default abstract class GeometricShape {
   }
 
   public setScaleConfig(scaleConfig: ScaleConfig): void {
-    console.log(scaleConfig);
-    if (scaleConfig.origin?.source)
-      this.setScaleOrigin(
-        scaleConfig.origin.source.x,
-        scaleConfig.origin.source.y
-      );
-    if (typeof scaleConfig.origin?.use === "boolean")
-      this.isScalingFromOrigin = scaleConfig.origin.use;
-    if (typeof scaleConfig.self?.use === "boolean")
-      this.isScalingFromSelf = scaleConfig.self.use;
-    if (scaleConfig.scale) this.setScale(scaleConfig.scale);
+    if (scaleConfig.origin) {
+      if (scaleConfig.origin.source)
+        this.setScaleOrigin(
+          scaleConfig.origin.source.x,
+          scaleConfig.origin.source.y
+        );
+      if (typeof scaleConfig.origin.use === "boolean")
+        this.isScalingFromOrigin = scaleConfig.origin.use;
+    }
+    if (scaleConfig.self) {
+      if (typeof scaleConfig.self?.use === "boolean")
+        this.isScalingFromSelf = scaleConfig.self.use;
+    }
+    if (typeof scaleConfig.scale === "number") this.setScale(scaleConfig.scale);
   }
 }

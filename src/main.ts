@@ -7,7 +7,19 @@ class myScene extends Scene {
     super();
   }
   protected create(): void {
-    const rect: Rectangle = this.add(new Rectangle(350, 350, 100, 100), "rect");
+    const rect: Rectangle = this.add(new Rectangle(200, 200, 100, 100), "rect");
+    rect.setRotationConfig({
+      origin: {
+        source: { x: 400, y: 400 },
+        use: true,
+        directionScaler: -2,
+      },
+      self: {
+        use: true,
+        directionScaler: 1,
+      },
+      angle: 1,
+    });
   }
   protected update(ctx: CanvasRenderingContext2D, deltaTime: number): void {}
 }

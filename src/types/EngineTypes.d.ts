@@ -28,3 +28,16 @@ export interface ScaleConfig {
   };
   scale?: number;
 }
+
+export interface RotationConfig {
+  origin?: {
+    source?: Vector2Snippet;
+    use?: boolean;
+    directionScaler?: number;
+  };
+  self?: {
+    use?: boolean;
+    directionScaler?: number;
+  };
+  angle?: number;
+}
