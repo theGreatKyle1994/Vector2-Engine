@@ -1,6 +1,5 @@
 import Scene from "./engine/Scene";
 import GameInstance from "./engine/GameInstance";
-import Circle from "./physics/primitives/Circle";
 import Rectangle from "./physics/primitives/Rectangle";
 
 class myScene extends Scene {
@@ -8,11 +7,7 @@ class myScene extends Scene {
     super();
   }
   protected create(): void {
-    const rect: Rectangle = this.add(new Rectangle(450, 350, 100, 100), "rect");
-    rect.setScaleOrigin(400, 400);
-    rect.isScalingFromOrigin = true;
-    rect.isScalingFromSelf = false;
-    rect.setScale(1.5);
+    const rect: Rectangle = this.add(new Rectangle(350, 350, 100, 100), "rect");
   }
   protected update(ctx: CanvasRenderingContext2D, deltaTime: number): void {}
 }

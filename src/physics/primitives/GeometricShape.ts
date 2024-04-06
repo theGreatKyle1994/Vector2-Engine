@@ -1,3 +1,4 @@
+import type { ScaleConfig } from "../../types/EngineTypes";
 import EngineMath from "../EngineMath";
 import Vector2 from "../Vector2";
 
@@ -11,9 +12,10 @@ export default abstract class GeometricShape {
   public isRotatingFromSelf: boolean = true;
   public isRotatingFromOrigin: boolean = false;
   protected rotationDelta: number = 0;
+  public scale: number = 1;
   public scaleOrigin: Vector2;
-  public isScalingFromSelf: boolean = true;
-  public isScalingFromOrigin: boolean = false;
+  protected isScalingFromSelf: boolean = true;
+  protected isScalingFromOrigin: boolean = false;
 
   constructor(x: number, y: number) {
     this.origin = new Vector2({ x, y });
@@ -87,10 +89,27 @@ export default abstract class GeometricShape {
   }
 
   public setScale(scaler: number): void {
-    if (this.isScalingFromOrigin) this.origin.multToSelf(scaler);
+    if (this.isScalingFromOrigin) {
+      this.scale = scaler;
+      this.origin.multToSelf(this.scale);
+    }
   }
 
   public setScaleOrigin(x: number, y: number): void {
     this.scaleOrigin.setSelf({ x, y });
+  }
+
+  public setScaleConfig(scaleConfig: ScaleConfig): void {
+    console.log(scaleConfig);
+    if (scaleConfig.origin?.source)
+      this.setScaleOrigin(
+        scaleConfig.origin.source.x,
+        scaleConfig.origin.source.y
+      );
+    if (typeof scaleConfig.origin?.use === "boolean")
+      this.isScalingFromOrigin = scaleConfig.origin.use;
+    if (typeof scaleConfig.self?.use === "boolean")
+      this.isScalingFromSelf = scaleConfig.self.use;
+    if (scaleConfig.scale) this.setScale(scaleConfig.scale);
   }
 }

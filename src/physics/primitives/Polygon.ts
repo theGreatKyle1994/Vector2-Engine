@@ -92,24 +92,24 @@ export default class Polygon extends GeometricShape {
     const distX: number = this.vertices[0].x - x;
     const distY: number = this.vertices[0].y - y;
     this.vertices.forEach((vert, i) => {
-      if (i === 0) {
-        vert.setSelf({ x, y });
-      } else vert.subToSelf({ x: distX, y: distY });
+      if (i === 0) vert.setSelf({ x, y });
+      else vert.subToSelf({ x: distX, y: distY });
     });
   }
 
   public setScale(scaler: number): void {
-    if (this.isScalingFromSelf) {
+    this.scale = scaler;
+    if (this.isScalingFromSelf)
       this.vertices.forEach((vert) => {
-        vert.x = scaler * (vert.x - this.origin.x) + this.origin.x;
-        vert.y = scaler * (vert.y - this.origin.y) + this.origin.y;
+        vert.x = this.scale * (vert.x - this.origin.x) + this.origin.x;
+        vert.y = this.scale * (vert.y - this.origin.y) + this.origin.y;
       });
-    }
-    if (this.isScalingFromOrigin) {
+    if (this.isScalingFromOrigin)
       this.vertices.forEach((vert) => {
-        vert.x = scaler * (vert.x - this.scaleOrigin.x) + this.scaleOrigin.x;
-        vert.y = scaler * (vert.y - this.scaleOrigin.y) + this.scaleOrigin.y;
+        vert.x =
+          this.scale * (vert.x - this.scaleOrigin.x) + this.scaleOrigin.x;
+        vert.y =
+          this.scale * (vert.y - this.scaleOrigin.y) + this.scaleOrigin.y;
       });
-    }
   }
 }
