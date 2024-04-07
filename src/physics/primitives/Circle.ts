@@ -9,6 +9,7 @@ export default class Circle extends GeometricShape {
   private counterClock: boolean;
 
   constructor(
+    id: string,
     x: number,
     y: number = x,
     diameter: number = 50,
@@ -16,7 +17,7 @@ export default class Circle extends GeometricShape {
     endAngle: number = 360,
     counterClock: boolean = false
   ) {
-    super(x, y);
+    super(id, x, y);
     this.diameter = diameter;
     this.radius = this.diameter / 2;
     this.startAngle = EngineMath.degreesToRadians(startAngle);

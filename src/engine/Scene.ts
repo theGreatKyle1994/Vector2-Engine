@@ -19,7 +19,7 @@ export default class Scene {
       y?: number,
       width?: number,
       height?: number
-    ): Rectangle => this.addObject(new Rectangle(x, y, width, height), id),
+    ): Rectangle => this.addObject(new Rectangle(id, x, y, width, height)),
     circle: (
       id: string,
       x: number,
@@ -30,11 +30,10 @@ export default class Scene {
       counterClock?: boolean
     ): Circle =>
       this.addObject(
-        new Circle(x, y, diameter, startAngle, endAngle, counterClock),
-        id
+        new Circle(id, x, y, diameter, startAngle, endAngle, counterClock)
       ),
     tri: (id: string, x: number, y?: number, size?: number): Triangle =>
-      this.addObject(new Triangle(x, y, size), id),
+      this.addObject(new Triangle(id, x, y, size)),
     poly: (
       id: string,
       vertices: [
@@ -43,7 +42,7 @@ export default class Scene {
         Vector2Snippet,
         ...Vector2Snippet[]
       ]
-    ): Polygon => this.addObject(new Polygon(vertices), id),
+    ): Polygon => this.addObject(new Polygon(id, vertices)),
   };
 
   protected init(): void {}
@@ -55,8 +54,8 @@ export default class Scene {
     this.objectHandler.run(ctx, deltaTime);
   }
 
-  private addObject<T>(object: T, id: string): T {
-    this.objectHandler.addObject(object, id);
+  private addObject<T>(object: T): T {
+    this.objectHandler.addObject(object);
     return object;
   }
 
@@ -64,7 +63,7 @@ export default class Scene {
     this.objectHandler.removeObject(id);
   }
 
-  public get<T>(id: string): T | undefined {
+  public get(id: string): Shape {
     return this.objectHandler.getObject(id);
   }
 }

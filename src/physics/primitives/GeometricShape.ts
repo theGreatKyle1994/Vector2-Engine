@@ -2,6 +2,7 @@ import EngineMath from "../EngineMath";
 import Vector2 from "../Vector2";
 
 export default abstract class GeometricShape {
+  public id: string;
   public origin: Vector2;
   public rotation: number = 0;
   public rotationSelfDirection: number = 1;
@@ -16,7 +17,8 @@ export default abstract class GeometricShape {
   protected isScalingFromSelf: boolean = false;
   protected isScalingFromOrigin: boolean = false;
 
-  constructor(x: number, y: number) {
+  constructor(id: string, x: number, y: number = x) {
+    this.id = id;
     this.origin = new Vector2({ x, y });
     this.rotationOrigin = this.origin;
     this.scaleOrigin = new Vector2({ x: this.origin.x, y: this.origin.y });

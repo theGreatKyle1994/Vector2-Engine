@@ -6,6 +6,7 @@ export default class Polygon extends GeometricShape {
   public vertices: Vector2[];
 
   constructor(
+    id: string,
     vertices: [
       Vector2Snippet,
       Vector2Snippet,
@@ -13,7 +14,7 @@ export default class Polygon extends GeometricShape {
       ...Vector2Snippet[]
     ]
   ) {
-    super(vertices[0].x, vertices[0].y);
+    super(id, vertices[0].x, vertices[0].y);
     this.vertices = this.createVertices(vertices);
     this.origin = this.getCenterOrigin();
   }

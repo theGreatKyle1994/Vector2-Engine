@@ -13,17 +13,7 @@ declare global {
     y: number;
   }
 
-  // Circle;
-  // Polygon;
-  // Rectangle;
-  // Triangle;
-
   type Shape = Polygon | Rectangle | Triangle | Circle;
-
-  interface ObjectListItem {
-    current: T;
-    id: string;
-  }
 
   interface ScaleConfig {
     origin?: {
