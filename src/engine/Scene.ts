@@ -54,7 +54,7 @@ export default class Scene {
     this.objectHandler.run(ctx, deltaTime);
   }
 
-  private addObject<T>(object: T): T {
+  private addObject<T extends Shape>(object: T): T {
     this.objectHandler.addObject(object);
     return object;
   }
@@ -63,7 +63,7 @@ export default class Scene {
     this.objectHandler.removeObject(id);
   }
 
-  public get(id: string): Shape {
+  public get<T extends Shape>(id: string): T {
     return this.objectHandler.getObject(id);
   }
 }
