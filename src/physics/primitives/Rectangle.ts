@@ -1,7 +1,7 @@
 import Polygon from "./Polygon";
 
 export default class Rectangle extends Polygon {
-  constructor(x: number, y: number, width: number = 10, height: number = 10) {
+  constructor(x: number, y: number = x, width: number = 100, height: number = 100) {
     super([
       { x, y },
       { x: x + width, y: y },

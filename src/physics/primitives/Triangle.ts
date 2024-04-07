@@ -2,7 +2,7 @@ import EngineMath from "../EngineMath";
 import Polygon from "./Polygon";
 
 export default class Triangle extends Polygon {
-  constructor(x: number, y: number, size: number = 10) {
+  constructor(x: number, y: number = x, size: number = 100) {
     super([
       { x, y },
       { x: x + size, y },

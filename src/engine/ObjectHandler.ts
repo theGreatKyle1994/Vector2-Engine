@@ -1,6 +1,3 @@
-import type { Shape } from "../types/EngineTypes";
-import type { ObjectListItem } from "../types/EngineTypes";
-
 export default class ObjectHandler {
   private objectList: Array<ObjectListItem> = [];
 
@@ -9,20 +6,20 @@ export default class ObjectHandler {
     for (let object of this.objectList) object.current.render(ctx);
   }
 
-  public addObject(newObject: Shape, id: string): void {
+  public addObject<T>(newObject: T, id: string): void {
     this.objectList.push({ current: newObject, id });
   }
 
-  public getObject(id: string): Shape | undefined {
-    for (let i = 0; i < this.objectList.length; i++) {
-      if (this.objectList[i].id === id) return this.objectList[i].current;
+  public getObject<T>(id: string): T | undefined {
+    for (let obj of this.objectList) {
+      if (obj.id === id) return obj.current;
     }
     return undefined;
   }
 
   public removeObject(id: string): void {
-    const index: number = this.objectList.findIndex((object) => {
-      if (object.id === id) return object;
+    const index: number = this.objectList.findIndex((obj) => {
+      if (obj.id === id) return obj;
     });
     this.objectList.splice(index, 1);
   }

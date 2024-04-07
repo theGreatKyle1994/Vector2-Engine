@@ -1,27 +1,24 @@
 import Scene from "./engine/Scene";
 import GameInstance from "./engine/GameInstance";
-import Rectangle from "./physics/primitives/Rectangle";
 
 class myScene extends Scene {
   constructor() {
     super();
   }
   protected create(): void {
-    const rect: Rectangle = this.add(new Rectangle(200, 200, 100, 100), "rect");
-    rect.setRotationConfig({
-      origin: {
-        source: { x: 400, y: 400 },
-        use: true,
-        directionScaler: -2,
-      },
-      self: {
-        use: true,
-        directionScaler: 1,
-      },
-      angle: 1,
-    });
+    const rect = this.add.rect("rect", 350);
+    const tri = this.add.tri("tri", 650);
+    const cir = this.add.circle("cir", 500);
+    const poly = this.add.poly("poly", [
+      { x: 100, y: 100 },
+      { x: 100, y: 200 },
+      { x: 400, y: 300 },
+      { x: 400, y: 200 },
+    ]);
   }
-  protected update(ctx: CanvasRenderingContext2D, deltaTime: number): void {}
+  protected update(ctx: CanvasRenderingContext2D, deltaTime: number): void {
+    const cir = this.get("cir");
+  }
 }
 
 new GameInstance({ scene: new myScene() });

@@ -1,6 +1,5 @@
 import GeometricShape from "./GeometricShape";
 import Vector2 from "../Vector2";
-import type { Vector2Snippet } from "../../types/EngineTypes";
 import EngineMath from "../EngineMath";
 
 export default class Polygon extends GeometricShape {

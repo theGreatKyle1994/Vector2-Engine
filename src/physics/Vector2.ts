@@ -1,5 +1,3 @@
-import type { Vector2Snippet } from "../types/EngineTypes";
-
 export default class Vector2 {
   public x: number;
   public y: number;

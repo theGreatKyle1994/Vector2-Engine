@@ -10,8 +10,8 @@ export default class Circle extends GeometricShape {
 
   constructor(
     x: number,
-    y: number,
-    diameter: number,
+    y: number = x,
+    diameter: number = 50,
     startAngle: number = 0,
     endAngle: number = 360,
     counterClock: boolean = false

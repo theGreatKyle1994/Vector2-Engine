@@ -1,43 +1,51 @@
-import Vector2 from "../physics/Vector2";
+import type Circle from "../physics/primitives/Circle";
 import type Polygon from "../physics/primitives/Polygon";
 import type Rectangle from "../physics/primitives/Rectangle";
+import type Triangle from "../physics/primitives/Triangle";
 
-export interface GameConfig {
-  scene: Scene;
-}
+declare global {
+  interface GameConfig {
+    scene: Scene;
+  }
 
-export interface Vector2Snippet {
-  x: number;
-  y: number;
-}
+  interface Vector2Snippet {
+    x: number;
+    y: number;
+  }
 
-export type Shape = Polygon | Rectangle | Triangle;
+  // Circle;
+  // Polygon;
+  // Rectangle;
+  // Triangle;
 
-export interface ObjectListItem {
-  current: Shape;
-  id: string;
-}
+  type Shape = Polygon | Rectangle | Triangle | Circle;
 
-export interface ScaleConfig {
-  origin?: {
-    source?: Vector2Snippet;
-    use?: boolean;
-  };
-  self?: {
-    use?: boolean;
-  };
-  scale?: number;
-}
+  interface ObjectListItem {
+    current: T;
+    id: string;
+  }
 
-export interface RotationConfig {
-  origin?: {
-    source?: Vector2Snippet;
-    use?: boolean;
-    directionScaler?: number;
-  };
-  self?: {
-    use?: boolean;
-    directionScaler?: number;
-  };
-  angle?: number;
+  interface ScaleConfig {
+    origin?: {
+      source?: Vector2Snippet;
+      use?: boolean;
+    };
+    self?: {
+      use?: boolean;
+    };
+    scale?: number;
+  }
+
+  interface RotationConfig {
+    origin?: {
+      source?: Vector2Snippet;
+      use?: boolean;
+      directionScaler?: number;
+    };
+    self?: {
+      use?: boolean;
+      directionScaler?: number;
+    };
+    angle?: number;
+  }
 }

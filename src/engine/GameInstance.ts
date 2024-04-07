@@ -1,5 +1,4 @@
 import type Scene from "./Scene";
-import type { GameConfig } from "../types/EngineTypes";
 
 export default class GameInstance {
   private readonly canvas = document.querySelector(

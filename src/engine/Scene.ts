@@ -1,13 +1,50 @@
+import Rectangle from "../physics/primitives/Rectangle";
+import Circle from "../physics/primitives/Circle";
+import Triangle from "../physics/primitives/Triangle";
+import Polygon from "../physics/primitives/Polygon";
 import ObjectHandler from "./ObjectHandler";
-import type { Shape } from "../types/EngineTypes";
 
 export default class Scene {
-  #objectHandler: ObjectHandler = new ObjectHandler();
+  private objectHandler: ObjectHandler = new ObjectHandler();
 
   constructor() {
     this.init();
     this.create();
   }
+
+  public readonly add = {
+    rect: (
+      id: string,
+      x: number,
+      y?: number,
+      width?: number,
+      height?: number
+    ): Rectangle => this.addObject(new Rectangle(x, y, width, height), id),
+    circle: (
+      id: string,
+      x: number,
+      y?: number,
+      diameter?: number,
+      startAngle?: number,
+      endAngle?: number,
+      counterClock?: boolean
+    ): Circle =>
+      this.addObject(
+        new Circle(x, y, diameter, startAngle, endAngle, counterClock),
+        id
+      ),
+    tri: (id: string, x: number, y?: number, size?: number): Triangle =>
+      this.addObject(new Triangle(x, y, size), id),
+    poly: (
+      id: string,
+      vertices: [
+        Vector2Snippet,
+        Vector2Snippet,
+        Vector2Snippet,
+        ...Vector2Snippet[]
+      ]
+    ): Polygon => this.addObject(new Polygon(vertices), id),
+  };
 
   protected init(): void {}
   protected create(): void {}
@@ -15,19 +52,19 @@ export default class Scene {
 
   public run(ctx: CanvasRenderingContext2D, deltaTime: number): void {
     this.update(ctx, deltaTime);
-    this.#objectHandler.run(ctx, deltaTime);
+    this.objectHandler.run(ctx, deltaTime);
   }
 
-  public add(object: Shape, id: string): Shape {
-    this.#objectHandler.addObject(object, id);
+  private addObject<T>(object: T, id: string): T {
+    this.objectHandler.addObject(object, id);
     return object;
   }
 
   public remove(id: string): void {
-    this.#objectHandler.removeObject(id);
+    this.objectHandler.removeObject(id);
   }
 
-  public get(id: string): Shape | undefined {
-    return this.#objectHandler.getObject(id);
+  public get<T>(id: string): T | undefined {
+    return this.objectHandler.getObject(id);
   }
 }

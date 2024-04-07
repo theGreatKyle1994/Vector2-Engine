@@ -1,4 +1,3 @@
-import type { RotationConfig, ScaleConfig } from "../../types/EngineTypes";
 import EngineMath from "../EngineMath";
 import Vector2 from "../Vector2";
 
