@@ -38,12 +38,12 @@ declare global {
     angle?: number;
   }
 
-  class Vector2 extends Vector2Base {}
+  declare class Vector2 extends Vector2Base {}
 
   type Shape = Polygon | Rectangle | Triangle | Circle;
 
-  class Circle extends CircleBase {}
-  class Polygon extends PolygonBase {}
-  class Rectangle extends RectangleBase {}
-  class Triangle extends TriangleBase {}
+  declare class Circle extends CircleBase {}
+  declare class Polygon extends PolygonBase {}
+  declare class Rectangle extends RectangleBase {}
+  declare class Triangle extends TriangleBase {}
 }

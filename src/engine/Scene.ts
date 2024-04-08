@@ -1,7 +1,7 @@
-import { default as Rectangle } from "../physics/primitives/Rectangle";
-import { default as Triangle } from "../physics/primitives/Triangle";
-import { default as Circle } from "../physics/primitives/Circle";
-import { default as Polygon } from "../physics/primitives/Polygon";
+import RectangleBase from "../physics/primitives/Rectangle";
+import TriangleBase from "../physics/primitives/Triangle";
+import CircleBase from "../physics/primitives/Circle";
+import PolygonBase from "../physics/primitives/Polygon";
 
 export default class Scene {
   private objectList: Array<Shape> = [];
@@ -22,7 +22,9 @@ export default class Scene {
       y?: number,
       width?: number,
       height?: number
-    ): Rectangle => this.addObject(new Rectangle(id, x, y, width, height)),
+    ): Rectangle => {
+      return this.addObject(new RectangleBase(id, x, y, width, height));
+    },
     circle: (
       id: string,
       x: number,
@@ -31,12 +33,14 @@ export default class Scene {
       startAngle?: number,
       endAngle?: number,
       counterClock?: boolean
-    ): Circle =>
-      this.addObject(
-        new Circle(id, x, y, diameter, startAngle, endAngle, counterClock)
-      ),
-    tri: (id: string, x: number, y?: number, size?: number): Triangle =>
-      this.addObject(new Triangle(id, x, y, size)),
+    ): Circle => {
+      return this.addObject(
+        new CircleBase(id, x, y, diameter, startAngle, endAngle, counterClock)
+      );
+    },
+    tri: (id: string, x: number, y?: number, size?: number): TriangleBase => {
+      return this.addObject(new TriangleBase(id, x, y, size));
+    },
     poly: (
       id: string,
       vertices: [
@@ -45,7 +49,9 @@ export default class Scene {
         Vector2Snippet,
         ...Vector2Snippet[]
       ]
-    ): Polygon => this.addObject(new Polygon(id, vertices)),
+    ): Polygon => {
+      return this.addObject(new PolygonBase(id, vertices));
+    },
   };
 
   public run(ctx: CanvasRenderingContext2D, deltaTime: number): void {
