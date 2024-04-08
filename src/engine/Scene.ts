@@ -22,7 +22,7 @@ export default class Scene {
       y?: number,
       width?: number,
       height?: number
-    ): Rectangle => this.addObject(new Rectangle(id, x, y, width, height)),
+    ): Shapes.Rectangle => this.addObject(new Rectangle(id, x, y, width, height)),
     circle: (
       id: string,
       x: number,
@@ -31,11 +31,11 @@ export default class Scene {
       startAngle?: number,
       endAngle?: number,
       counterClock?: boolean
-    ): Circle =>
+    ): Shapes.Circle =>
       this.addObject(
         new Circle(id, x, y, diameter, startAngle, endAngle, counterClock)
       ),
-    tri: (id: string, x: number, y?: number, size?: number): Triangle =>
+    tri: (id: string, x: number, y?: number, size?: number): Shapes.Triangle =>
       this.addObject(new Triangle(id, x, y, size)),
     poly: (
       id: string,
@@ -45,7 +45,7 @@ export default class Scene {
         Vector2Snippet,
         ...Vector2Snippet[]
       ]
-    ): Polygon => this.addObject(new Polygon(id, vertices)),
+    ): Shapes.Polygon => this.addObject(new Polygon(id, vertices)),
   };
 
   public run(ctx: CanvasRenderingContext2D, deltaTime: number): void {
@@ -54,7 +54,7 @@ export default class Scene {
     for (let object of this.objectList) object.render(ctx);
   }
 
-  public addObject<T extends Shape>(newObject: T): T {
+  public addObject(newObject: Shape): Shape {
     this.objectList.push(newObject);
     return newObject;
   }
