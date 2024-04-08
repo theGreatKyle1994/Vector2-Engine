@@ -1,8 +1,8 @@
-import GeometricShape from "./GeometricShape";
+import GeometricShapeBase from "./GeometricShape";
 import Vector2 from "../Vector2";
 import EngineMath from "../EngineMath";
 
-export default class Polygon extends GeometricShape {
+export default class PolygonBase extends GeometricShapeBase {
   public vertices: Vector2[];
 
   constructor(

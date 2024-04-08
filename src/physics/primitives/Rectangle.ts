@@ -1,6 +1,6 @@
-import Polygon from "./Polygon";
+import PolygonBase from "./Polygon";
 
-export default class Rectangle extends Polygon {
+export default class RectangleBase extends PolygonBase {
   constructor(
     id: string,
     x: number,

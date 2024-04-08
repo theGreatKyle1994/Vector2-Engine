@@ -1,7 +1,7 @@
-import Rectangle from "../physics/primitives/Rectangle";
-import Circle from "../physics/primitives/Circle";
-import Triangle from "../physics/primitives/Triangle";
-import Polygon from "../physics/primitives/Polygon";
+import { default as Rectangle } from "../physics/primitives/Rectangle";
+import { default as Triangle } from "../physics/primitives/Triangle";
+import { default as Circle } from "../physics/primitives/Circle";
+import { default as Polygon } from "../physics/primitives/Polygon";
 
 export default class Scene {
   private objectList: Array<Shape> = [];
@@ -22,7 +22,7 @@ export default class Scene {
       y?: number,
       width?: number,
       height?: number
-    ): Shapes.Rectangle => this.addObject(new Rectangle(id, x, y, width, height)),
+    ): Rectangle => this.addObject(new Rectangle(id, x, y, width, height)),
     circle: (
       id: string,
       x: number,
@@ -31,11 +31,11 @@ export default class Scene {
       startAngle?: number,
       endAngle?: number,
       counterClock?: boolean
-    ): Shapes.Circle =>
+    ): Circle =>
       this.addObject(
         new Circle(id, x, y, diameter, startAngle, endAngle, counterClock)
       ),
-    tri: (id: string, x: number, y?: number, size?: number): Shapes.Triangle =>
+    tri: (id: string, x: number, y?: number, size?: number): Triangle =>
       this.addObject(new Triangle(id, x, y, size)),
     poly: (
       id: string,
@@ -45,7 +45,7 @@ export default class Scene {
         Vector2Snippet,
         ...Vector2Snippet[]
       ]
-    ): Shapes.Polygon => this.addObject(new Polygon(id, vertices)),
+    ): Polygon => this.addObject(new Polygon(id, vertices)),
   };
 
   public run(ctx: CanvasRenderingContext2D, deltaTime: number): void {
@@ -54,9 +54,9 @@ export default class Scene {
     for (let object of this.objectList) object.render(ctx);
   }
 
-  public addObject(newObject: Shape): Shape {
+  public addObject<T extends Shape>(newObject: T): T {
     this.objectList.push(newObject);
-    return newObject;
+    return <T>newObject;
   }
 
   public remove(id: string): void {
@@ -66,7 +66,7 @@ export default class Scene {
     this.objectList.splice(index, 1);
   }
 
-  public get<T>(id: string): T {
+  public get<T extends Shape>(id: string): T {
     for (let i = 0; i < this.objectList.length; i++)
       if (this.objectList[i].id === id) return <T>this.objectList[i];
     throw new Error(`" ${id} " not found in object list.`);

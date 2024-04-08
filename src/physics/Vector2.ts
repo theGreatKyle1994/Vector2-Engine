@@ -1,4 +1,4 @@
-export default class Vector2 {
+export default class Vector2Base {
   public x: number;
   public y: number;
 

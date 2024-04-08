@@ -1,7 +1,7 @@
 import EngineMath from "../EngineMath";
-import GeometricShape from "./GeometricShape";
+import GeometricShapeBase from "./GeometricShape";
 
-export default class Circle extends GeometricShape {
+export default class CircleBase extends GeometricShapeBase {
   public diameter: number;
   public radius: number;
   private startAngle: number;

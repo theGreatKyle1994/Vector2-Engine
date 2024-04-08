@@ -1,7 +1,7 @@
 import EngineMath from "../EngineMath";
-import Polygon from "./Polygon";
+import PolygonBase from "./Polygon";
 
-export default class Triangle extends Polygon {
+export default class TriangleBase extends PolygonBase {
   constructor(id: string, x: number, y: number = x, size: number = 100) {
     super(id, [
       { x, y },

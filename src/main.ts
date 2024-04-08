@@ -17,10 +17,10 @@ class myScene extends Scene {
     ]);
   }
   protected update(ctx: CanvasRenderingContext2D, deltaTime: number): void {
-    const rect = this.get<Shapes.Rectangle>("rect");
-    const tri = this.get<Shapes.Triangle>("tri");
-    const cir = this.get<Shapes.Circle>("cir");
-    const poly = this.get<Shapes.Polygon>("poly");
+    const rect = this.get<Rectangle>("rect");
+    const tri = this.get<Triangle>("tri");
+    const cir = this.get<Circle>("cir");
+    const poly = this.get<Polygon>("poly");
   }
 }
 
