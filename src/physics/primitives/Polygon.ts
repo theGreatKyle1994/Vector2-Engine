@@ -23,7 +23,7 @@ export default class PolygonBase extends GeometricShapeBase {
     ctx.beginPath();
     this.vertices.forEach((vert) => ctx.lineTo(vert.x, vert.y));
     ctx.closePath();
-    ctx.stroke();
+    super.render(ctx);
   }
 
   public update(deltaTime: number): void {

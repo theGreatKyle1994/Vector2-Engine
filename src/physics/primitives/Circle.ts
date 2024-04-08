@@ -35,7 +35,7 @@ export default class CircleBase extends GeometricShapeBase {
       this.endAngle,
       this.counterClock
     );
-    ctx.stroke();
+    super.render(ctx);
   }
 
   protected doRotate(angle: number): void {

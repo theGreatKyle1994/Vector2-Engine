@@ -15,6 +15,10 @@ class myScene extends Scene {
       { x: 400, y: 300 },
       { x: 400, y: 200 },
     ]);
+    rect.setColorConfig({ color: "green" });
+    tri.setColorConfig({ color: "yellow" });
+    cir.setColorConfig({ color: "red" });
+    poly.setColorConfig({ color: "blue" });
   }
   protected update(ctx: CanvasRenderingContext2D, deltaTime: number): void {
     const rect = this.get<Rectangle>("rect");

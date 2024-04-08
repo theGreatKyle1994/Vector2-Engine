@@ -3,6 +3,10 @@ import Vector2 from "../Vector2";
 
 export default abstract class GeometricShapeBase {
   public id: string;
+  public color: string = "transparent";
+  public borderColor: string = "black";
+  public borderWidth: number = 1;
+  public isUsingBorder: boolean = true;
   public origin: Vector2;
   public rotation: number = 0;
   public rotationSelfDirection: number = 1;
@@ -24,7 +28,15 @@ export default abstract class GeometricShapeBase {
     this.scaleOrigin = new Vector2({ x: this.origin.x, y: this.origin.y });
   }
 
-  public render(ctx: CanvasRenderingContext2D): void {}
+  public render(ctx: CanvasRenderingContext2D): void {
+    if (this.isUsingBorder) {
+      ctx.lineWidth = this.borderWidth;
+      ctx.strokeStyle = this.borderColor;
+      ctx.stroke();
+    }
+    ctx.fillStyle = this.color;
+    ctx.fill();
+  }
 
   public update(deltaTime: number): void {
     if (
@@ -138,5 +150,17 @@ export default abstract class GeometricShapeBase {
         this.isScalingFromSelf = scaleConfig.self.use;
     }
     if (typeof scaleConfig.scale === "number") this.setScale(scaleConfig.scale);
+  }
+
+  public setColorConfig(colorConfig: ColorConfig): void {
+    if (colorConfig) {
+      if (colorConfig.color) this.color = colorConfig.color;
+      if (typeof colorConfig.useBorder === "boolean")
+        this.isUsingBorder = colorConfig.useBorder;
+      if (this.isUsingBorder) {
+        if (colorConfig.borderWidth) this.borderWidth = colorConfig.borderWidth;
+        if (colorConfig.borderColor) this.borderColor = colorConfig.borderColor;
+      }
+    }
   }
 }

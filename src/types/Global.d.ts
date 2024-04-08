@@ -38,6 +38,13 @@ declare global {
     angle?: number;
   }
 
+  declare interface ColorConfig {
+    color?: string;
+    borderColor?: string;
+    borderWidth?: number;
+    useBorder?: boolean;
+  }
+
   declare class Vector2 extends Vector2Base {}
 
   type Shape = Polygon | Rectangle | Triangle | Circle;
