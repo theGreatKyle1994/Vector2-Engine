@@ -6,26 +6,26 @@ class myScene extends Scene {
     super();
   }
   protected create(): void {
-    const rect = this.add.rect("rect", 350);
-    const tri = this.add.tri("tri", 650);
-    const cir = this.add.circle("cir", 500);
-    const poly = this.add.poly("poly", [
-      { x: 100, y: 100 },
-      { x: 100, y: 200 },
-      { x: 400, y: 300 },
-      { x: 400, y: 200 },
-    ]);
-    rect.setColorConfig({ color: "green" });
-    tri.setColorConfig({ color: "yellow" });
-    cir.setColorConfig({ color: "red" });
-    poly.setColorConfig({ color: "blue" });
+    const rect = this.add.rect("rect", 200);
+    rect.setColorConfig({
+      color: "green",
+      borderColor: "red",
+      borderWidth: 10,
+    });
+    rect.setRotationConfig({
+      origin: {
+        source: { x: 400, y: 400 },
+        use: true,
+        directionScaler: 1,
+      },
+      self: {
+        use: true,
+        directionScaler: -2,
+      },
+      angle: 1,
+    });
   }
-  protected update(ctx: CanvasRenderingContext2D, deltaTime: number): void {
-    const rect = this.get<Rectangle>("rect");
-    const tri = this.get<Triangle>("tri");
-    const cir = this.get<Circle>("cir");
-    const poly = this.get<Polygon>("poly");
-  }
+  protected update(ctx: CanvasRenderingContext2D, deltaTime: number): void {}
 }
 
 new GameInstance({ scene: new myScene() });

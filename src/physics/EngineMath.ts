@@ -1,3 +1,5 @@
+import { default as Vector2 } from "./Vector2";
+
 export default abstract class EngineMath {
   static degreesToRadians(angle: number): number {
     return (angle * Math.PI) / 180;

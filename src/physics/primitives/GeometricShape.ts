@@ -1,5 +1,5 @@
 import EngineMath from "../EngineMath";
-import Vector2 from "../Vector2";
+import { default as Vector2 } from "../Vector2";
 
 export default abstract class GeometricShapeBase {
   public id: string;
