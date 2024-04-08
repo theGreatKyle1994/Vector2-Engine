@@ -2,15 +2,18 @@ import Rectangle from "../physics/primitives/Rectangle";
 import Circle from "../physics/primitives/Circle";
 import Triangle from "../physics/primitives/Triangle";
 import Polygon from "../physics/primitives/Polygon";
-import ObjectHandler from "./ObjectHandler";
 
 export default class Scene {
-  private objectHandler: ObjectHandler = new ObjectHandler();
+  private objectList: Array<Shape> = [];
 
   constructor() {
     this.init();
     this.create();
   }
+
+  protected init(): void {}
+  protected create(): void {}
+  protected update(ctx: CanvasRenderingContext2D, deltaTime: number): void {}
 
   public readonly add = {
     rect: (
@@ -45,25 +48,27 @@ export default class Scene {
     ): Polygon => this.addObject(new Polygon(id, vertices)),
   };
 
-  protected init(): void {}
-  protected create(): void {}
-  protected update(ctx: CanvasRenderingContext2D, deltaTime: number): void {}
-
   public run(ctx: CanvasRenderingContext2D, deltaTime: number): void {
     this.update(ctx, deltaTime);
-    this.objectHandler.run(ctx, deltaTime);
+    for (let object of this.objectList) object.update(deltaTime);
+    for (let object of this.objectList) object.render(ctx);
   }
 
-  private addObject<T extends Shape>(object: T): T {
-    this.objectHandler.addObject(object);
-    return object;
+  public addObject<T extends Shape>(newObject: T): T {
+    this.objectList.push(newObject);
+    return newObject;
   }
 
   public remove(id: string): void {
-    this.objectHandler.removeObject(id);
+    const index: number = this.objectList.findIndex((obj) => {
+      if (obj.id === id) return obj;
+    });
+    this.objectList.splice(index, 1);
   }
 
-  public get<T extends Shape>(id: string): T {
-    return this.objectHandler.getObject(id);
+  public get<T>(id: string): T {
+    for (let i = 0; i < this.objectList.length; i++)
+      if (this.objectList[i].id === id) return <T>this.objectList[i];
+    throw new Error(`" ${id} " not found in object list.`);
   }
 }

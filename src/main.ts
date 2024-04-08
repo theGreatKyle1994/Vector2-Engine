@@ -17,7 +17,7 @@ class myScene extends Scene {
     ]);
   }
   protected update(ctx: CanvasRenderingContext2D, deltaTime: number): void {
-    const cir = this.get("cir");
+    const cir = this.get<Shapes.Circle>("cir");
   }
 }
 
