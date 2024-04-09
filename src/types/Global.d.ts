@@ -45,6 +45,22 @@ declare global {
     useBorder?: boolean;
   }
 
+  declare interface AnimConfig {
+    isLooping?: boolean;
+    delay?: number;
+    stopTime?: number;
+    translateSteps?: Array<TranslateAnimPlot>;
+    action?: () => void;
+    actionType: string;
+    object: Shape;
+  }
+
+  declare interface TranslateAnimPlot {
+    from: Vector2Snippet;
+    to: Vector2Snippet;
+    speed: number;
+  }
+
   declare class Vector2 extends Vector2Base {}
 
   type Shape = Polygon | Rectangle | Triangle | Circle;

@@ -1,3 +1,4 @@
+import AnimationManager from "./animations/AnimationManager";
 import RectangleBase from "../physics/primitives/Rectangle";
 import TriangleBase from "../physics/primitives/Triangle";
 import CircleBase from "../physics/primitives/Circle";
@@ -5,6 +6,7 @@ import PolygonBase from "../physics/primitives/Polygon";
 
 export default class Scene {
   private objectList: Array<Shape> = [];
+  private animationManager: AnimationManager = new AnimationManager();
 
   constructor() {
     this.init();
@@ -76,5 +78,9 @@ export default class Scene {
     for (let i = 0; i < this.objectList.length; i++)
       if (this.objectList[i].id === id) return <T>this.objectList[i];
     throw new Error(`" ${id} " not found in object list.`);
+  }
+
+  public createAnimation(animCfg: AnimConfig): void {
+    this.animationManager.newAnimation(animCfg);
   }
 }

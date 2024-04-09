@@ -13,7 +13,7 @@ export default abstract class GeometricShapeBase {
   public rotationOriginDirection: number = 1;
   public rotationAngle: number = 0;
   public rotationOrigin: Vector2;
-  public isRotatingFromSelf: boolean = false;
+  public isRotatingFromSelf: boolean = true;
   public isRotatingFromOrigin: boolean = false;
   protected rotationDelta: number = 0;
   public scale: number = 1;
