@@ -36,22 +36,22 @@ export default class Vector2Base {
     vec1: Vector2 | Vector2Snippet,
     vec2: Vector2 | Vector2Snippet
   ): Vector2 {
-    return new Vector2({ x: vec1.x + vec2.x, y: vec1.y + vec2.y });
+    return new Vector2Base({ x: vec1.x + vec2.x, y: vec1.y + vec2.y });
   }
 
   static sub(
     vec1: Vector2 | Vector2Snippet,
     vec2: Vector2 | Vector2Snippet
   ): Vector2 {
-    return new Vector2({ x: vec1.x - vec2.x, y: vec1.y - vec2.y });
+    return new Vector2Base({ x: vec1.x - vec2.x, y: vec1.y - vec2.y });
   }
 
   static mult(vec: Vector2 | Vector2Snippet, scaler: number): Vector2 {
-    return new Vector2({ x: vec.x * scaler, y: vec.y * scaler });
+    return new Vector2Base({ x: vec.x * scaler, y: vec.y * scaler });
   }
 
   static div(vec: Vector2 | Vector2Snippet, scaler: number): Vector2 {
-    return new Vector2({ x: vec.x / scaler, y: vec.y / scaler });
+    return new Vector2Base({ x: vec.x / scaler, y: vec.y / scaler });
   }
 
   static distanceBetween(

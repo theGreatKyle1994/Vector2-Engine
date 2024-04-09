@@ -25,6 +25,10 @@ export default class Animation {
       if (this.actionType) {
         switch (this.actionType) {
           case "translate": {
+            this.object.setTransform(
+              this.translateSteps[index].from.x,
+              this.translateSteps[index].from.y
+            );
             break;
           }
           case "rotate": {
@@ -40,8 +44,8 @@ export default class Animation {
       animationIteration();
       index++;
       if (index >= this.translateSteps.length) index = 0;
-      if (!this.isLooping)
-        setTimeout(() => clearInterval(animIterval), this.stopTime + 10);
     }, this.delay);
+    if (!this.isLooping)
+      setTimeout(() => clearInterval(animIterval), this.stopTime);
   }
 }

@@ -57,8 +57,8 @@ declare global {
 
   declare interface TranslateAnimPlot {
     from: Vector2Snippet;
-    to: Vector2Snippet;
-    speed: number;
+    to?: Vector2Snippet;
+    speed?: number;
   }
 
   declare class Vector2 extends Vector2Base {}

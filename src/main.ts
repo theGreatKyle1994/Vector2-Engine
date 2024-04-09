@@ -6,11 +6,25 @@ class myScene extends Scene {
     super();
   }
   protected create(): void {
-    const rect = this.add.rect("rect", 100);
+    const rect = this.add.rect("rect", 300);
+    // rect.goto({ x: 400, y: 400 }, 2000);
     this.createAnimation({
-      delay: 1000,
-      actionType: "translate",
       object: rect,
+      delay: 100,
+      stopTime: 400,
+      isLooping: true,
+      actionType: "translate",
+      action: () => rect.setFixedRotation(Math.random() * 90),
+      translateSteps: [
+        { from: { x: 50, y: 0 } },
+        { from: { x: 50, y: 0 } },
+        { from: { x: 0, y: 50 } },
+        { from: { x: 0, y: 50 } },
+        { from: { x: -50, y: 0 } },
+        { from: { x: -50, y: 0 } },
+        { from: { x: 0, y: -50 } },
+        { from: { x: 0, y: -50 } },
+      ],
     });
   }
 }
