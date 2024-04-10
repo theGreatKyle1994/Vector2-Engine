@@ -20,7 +20,7 @@ export default class Animation {
       if (this.actionType) {
         switch (this.actionType) {
           case "translate": {
-            this.goto(
+            this.gotoTranslate(
               this.translateSteps[index].from,
               this.translateSteps[index].to,
               this.translateSteps[index].speed
@@ -44,7 +44,11 @@ export default class Animation {
     animationIteration();
   }
 
-  private goto(from: Vector2Snippet, to: Vector2Snippet, speed: number): void {
+  private gotoTranslate(
+    from: Vector2Snippet,
+    to: Vector2Snippet,
+    speed: number
+  ): void {
     this.object.setFixedTranslate(from.x, from.y);
     const speedMultiplier: number = 60 * (speed / 1000);
     const frameInterval: number = 1000 / 60;
