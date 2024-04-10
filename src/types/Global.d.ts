@@ -46,19 +46,16 @@ declare global {
   }
 
   declare interface AnimConfig {
-    isLooping?: boolean;
-    delay?: number;
-    stopTime?: number;
-    translateSteps?: Array<TranslateAnimPlot>;
-    action?: () => void;
-    actionType: string;
     object: Shape;
+    isLooping?: boolean;
+    translateSteps?: Array<TranslateAnimPlot>;
+    actionType: string;
   }
 
   declare interface TranslateAnimPlot {
     from: Vector2Snippet;
-    to?: Vector2Snippet;
-    speed?: number;
+    to: Vector2Snippet;
+    speed: number;
   }
 
   declare class Vector2 extends Vector2Base {}

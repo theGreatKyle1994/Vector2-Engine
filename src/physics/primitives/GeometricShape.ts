@@ -163,15 +163,4 @@ export default abstract class GeometricShapeBase {
       }
     }
   }
-
-  // public goto(location: Vector2Snippet, time: number = 1000): void {
-  //   const distance = Vector2.distanceBetween(this.origin, location);
-  //   const heading = Vector2.sub(location, this.origin);
-
-  //   const moveToAnim = setInterval(() => {
-  //     console.log(heading, distance);
-  //     this.setTransform(0, 1);
-  //   }, distance / time);
-  //   setTimeout(() => clearInterval(moveToAnim), time);
-  // }
 }
