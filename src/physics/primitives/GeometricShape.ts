@@ -116,11 +116,11 @@ export default abstract class GeometricShapeBase {
       this.setRotation(rotationConfig.angle);
   }
 
-  public setTransform(x: number, y: number): void {
+  public setTranslate(x: number, y: number): void {
     this.origin.addToSelf({ x, y });
   }
 
-  public setFixedTransform(x: number, y: number): void {
+  public setFixedTranslate(x: number, y: number): void {
     this.origin.setSelf({ x, y });
   }
 

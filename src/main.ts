@@ -7,15 +7,17 @@ class myScene extends Scene {
   }
   protected create(): void {
     const rect = this.add.rect("rect", 0);
-    rect.setTransform(0, 0);
     this.createAnimation({
       object: rect,
-      // isLooping: true,
+      isLooping: true,
       actionType: "translate",
       translateSteps: [
-        { from: { x: 0, y: 700 }, to: { x: 700, y: 700 }, speed: 1000 },
+        { from: { x: 0, y: 0 }, to: { x: 700, y: 0 }, speed: 5000 },
+        { from: { x: 700, y: 0 }, to: { x: 0, y: 700 }, speed: 5000 },
+        { from: { x: 0, y: 700 }, to: { x: 0, y: 0 }, speed: 5000 },
       ],
     });
+    // setTimeout(() => this.remove("rect"), 1000);
   }
 }
 
