@@ -84,11 +84,11 @@ export default class PolygonBase extends GeometricShapeBase {
     return edges;
   }
 
-  public setTransform(x: number, y: number): void {
+  public setTranslate(x: number, y: number): void {
     this.vertices.forEach((vert) => vert.addToSelf({ x, y }));
   }
 
-  public setFixedTransform(x: number, y: number): void {
+  public setFixedTranslate(x: number, y: number): void {
     const distX: number = this.vertices[0].x - x;
     const distY: number = this.vertices[0].y - y;
     this.vertices.forEach((vert, i) => {
