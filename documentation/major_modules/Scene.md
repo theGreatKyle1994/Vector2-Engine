@@ -1,6 +1,6 @@
 # Scene
 
-Scenes are used to manage canvas elements through the use of _init()_, _create()_ and _update()_ methods. Scenes make up the core foundation of the Vector2Engine. All shapes are created, destroyed and updated through the above mentioned methods. The majority of application logic are also be defined or imported to use inside an instantiated Scene.
+Scenes are used to manage canvas elements through the use of _init()_, _create()_ and _update()_ methods. Scenes make up the core foundation of the Vector2Engine. All shapes are created, destroyed and updated through the above mentioned methods. The majority of application logic are also be defined or imported to use inside an instantiated Scene. Any methods or internal objects used must be called using _this_.
 
 ## Types
 
@@ -36,8 +36,6 @@ class myScene extends Scene {
     - [tri()](#tri)
     - [poly()](#poly)
 - Methods
-  - [run()](#run)
-  - [addObject()](#addObject)
   - [remove()](#remove)
   - [get()](#get)
   - [createAnimation()](#createAnimation)
@@ -71,3 +69,98 @@ protected update(ctx: CanvasRenderingContext2D, deltaTime: number): void {}
 ```
 
 ### **_NOTE: Do not place create() based configurations or shape declarations in update(). This results in executing the code 60 times per second leading to callstack overflow errors and potential crashes or slowdowns._**
+
+# add
+
+The add Object contains various methods designed to add shapes to the Scene. Any and all _add_ calls must be called inside the Scene _update()_ method.
+
+## Using add
+
+This object is pre-defined inside the Scene class. It containes 4 methods to configure and draw shapes to the canvas. [rect](#addrect), [circle](#addcircle), [tri](#addtri) and [poly](#addpoly).
+
+```ts
+protected create(): void {
+  // Example using rect.
+  this.add.rect("rect", 100, 100);
+}
+```
+
+## add.rect()
+
+This method is used to create an instance of [RectangleBase]() to the Scene.
+
+### Arguments
+
+- **id**: string | _Required_
+- **x**: number | _Required_
+- **y**: number | _Optional_
+  - **Default**: **x** value
+- **width**: number | _Optional_
+  - **Default**: 100
+- **height**: number | _Optional_
+  - **Default**: 100
+
+**Returns**: Instance of [RectangleBase]() of type _Rectangle_.
+
+```ts
+this.add.rect(id: string, x: number, y?: number, width?: number, height?: number): Rectangle;
+```
+
+## add.circle()
+
+This method is used to create an instance of [CircleBase]() to the Scene.
+
+### Arguments
+
+- **id**: string | _Required_
+- **x**: number | _Required_
+- **y**: number | _Optional_
+  - **Default**: **x** value
+- **diameter**: number | _Optional_
+  - **Default**: 50
+- **startAngle**: number | _Optional_
+  - **Default**: 0
+- **endAngle**: number | _Optional_
+  - **Default**: 360
+- **counterClock**: boolean | _Optional_
+  - **Default**: false
+
+**Returns**: Instance of [CirlceBase]() of type _Circle_.
+
+```ts
+this.add.circle(id: string,  x: number, y?: number, diameter?: number, startAngle?: number, endAngle?: number, counterClock?: boolean): Circle;
+```
+
+## add.tri()
+
+This method is used to create an instance of [TriangleBase]() to the Scene.
+
+### Arguments
+
+- **id**: string | _Required_
+- **x**: number | _Required_
+- **y**: number | _Optional_
+  - **Default**: **x** value
+- **size**: number | _Optional_
+  - **Default**: 100
+
+**Returns**: Instance of [TriangleBase]() of type _Triangle_.
+
+```ts
+this.add.tri(id: string, x: number, y?: number, size?: number): Triangle;
+```
+
+## add.poly()
+
+This method is used to create an instance of [PolygonBase]() to the Scene.
+
+### Arguments
+
+- **id**: string | _Required_
+- **vertices**: [Vector2Snippet]()[ 3+ ] | _Required_
+
+**Returns**: Instance of [PolygonBase]() of type _Polygon_.
+
+```ts
+this.add.poly(id: string, vertices: [Vector2Snippet, Vector2Snippet, Vector2Snippet, ...Vector2Snippet[]]): Polygon;
+```

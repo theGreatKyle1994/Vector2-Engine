@@ -6,7 +6,9 @@ class myScene extends Scene {
     super();
   }
   protected init(): void {}
-  protected create(): void {}
+  protected create(): void {
+    this.add.rect("rect", 100, 100);
+  }
   protected update(ctx: CanvasRenderingContext2D, deltaTime: number): void {}
 }
 

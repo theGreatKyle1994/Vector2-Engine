@@ -62,7 +62,7 @@ export default class Scene {
     for (let object of this.objectList) object.render(ctx);
   }
 
-  public addObject<T extends Shape>(newObject: T): T {
+  private addObject<T extends Shape>(newObject: T): T {
     this.objectList.push(newObject);
     return <T>newObject;
   }
