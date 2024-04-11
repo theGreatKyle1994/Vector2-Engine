@@ -31,10 +31,10 @@ class myScene extends Scene {
   - [update()](#update)
 - Object Methods
   - [add](#add)
-    - [rect()](#rect)
-    - [circle()](#circle)
-    - [tri()](#tri)
-    - [poly()](#poly)
+    - [rect()](#addrect)
+    - [circle()](#addcircle)
+    - [tri()](#addtri)
+    - [poly()](#addpoly)
 - Methods
   - [remove()](#remove)
   - [get()](#get)
@@ -76,7 +76,7 @@ The add Object contains various methods designed to add shapes to the Scene. Any
 
 ## Using add
 
-This object is pre-defined inside the Scene class. It containes 4 methods to configure and draw shapes to the canvas. [rect](#addrect), [circle](#addcircle), [tri](#addtri) and [poly](#addpoly).
+This object is pre-defined inside the Scene class. It containes 4 methods to configure and draw shapes to the canvas. [rect](#addrect), [circle](#addcircle), [tri](#addtri) and [poly](#addpoly). All shapes created through _add_ must provide an _id_ argument in order to be used in the Scenes _objectManager_.
 
 ```ts
 protected create(): void {
@@ -87,7 +87,7 @@ protected create(): void {
 
 ## add.rect()
 
-This method is used to create an instance of [RectangleBase]() to the Scene.
+This method is used to create an instance of [RectangleBase]() to the Scene. The rectangles origin uses the _x_ and _y_ arguments to plot the upper left vertex. The _width_ argument is used to plot the upper right vertex. The _height_ argument is used to plot the bottom left vertex while both _width_ and _height_ are used to plot the bottom right vertex.
 
 ### Arguments
 
@@ -108,7 +108,7 @@ this.add.rect(id: string, x: number, y?: number, width?: number, height?: number
 
 ## add.circle()
 
-This method is used to create an instance of [CircleBase]() to the Scene.
+This method is used to create an instance of [CircleBase]() to the Scene. A circles origin is defined by its _x_ and _y_ arguments. The _diameter_ argument is used to expand an arc from the origin. A circle is drawn from the right side at 90 degrees. This point is considered the _startAngle_ and starts with a value of 0. The arc then rotates clockwise to draw the circle until it meets the angle of the _endAngle_ argument. If drawing in reverse is preferred, the _counterClock_ argument can be set to _true_.
 
 ### Arguments
 
@@ -133,7 +133,7 @@ this.add.circle(id: string,  x: number, y?: number, diameter?: number, startAngl
 
 ## add.tri()
 
-This method is used to create an instance of [TriangleBase]() to the Scene.
+This method is used to create an instance of [TriangleBase]() to the Scene. A triangles origin is plotted directly from the _x_ and _y_ arguments for the upper left vertex. The _size_ argument is used to plot the upper right vertex and the lower middle vertex. All triangles by default are equilateral and render upside down. If a non-equilateral triangle is preffered, use the [poly](#addpoly) method instead.
 
 ### Arguments
 
@@ -152,7 +152,7 @@ this.add.tri(id: string, x: number, y?: number, size?: number): Triangle;
 
 ## add.poly()
 
-This method is used to create an instance of [PolygonBase]() to the Scene.
+This method is used to create an instance of [PolygonBase]() to the Scene. Polygons are more complex only in the fact each vertex is plotted manually. The origin is defined by the first _Vector2Snippet_ in the _vertices_ array argument. A minimum of three vertices must be defined to create a polygon.
 
 ### Arguments
 
