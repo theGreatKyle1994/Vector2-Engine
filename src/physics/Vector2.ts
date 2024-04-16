@@ -60,4 +60,10 @@ export default class Vector2Base {
   ): number {
     return Math.sqrt((vec2.x - vec1.x) ** 2 + (vec2.y - vec1.y) ** 2);
   }
+
+  static normalize(vec: Vector2 | Vector2Snippet): Vector2 {
+    const magnitude = Math.sqrt(vec.x ** 2 + vec.y ** 2);
+    if (magnitude === 0) return new Vector2Base(vec);
+    return new Vector2Base({ x: vec.x / magnitude, y: vec.y / magnitude });
+  }
 }

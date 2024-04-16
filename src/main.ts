@@ -1,5 +1,6 @@
 import Scene from "./engine/Scene";
 import GameInstance from "./engine/GameInstance";
+import { default as Vector2 } from "./physics/Vector2";
 
 class myScene extends Scene {
   constructor() {
@@ -7,7 +8,8 @@ class myScene extends Scene {
   }
   protected init(): void {}
   protected create(): void {
-    this.add.tri("tri", 100, 100, 50);
+    const myVec: Vector2 = new Vector2({ x: 20, y: 1 });
+    console.log(Vector2.normalize(myVec));
   }
   protected update(ctx: CanvasRenderingContext2D, deltaTime: number): void {}
 }
