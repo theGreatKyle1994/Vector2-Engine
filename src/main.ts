@@ -8,9 +8,9 @@ class myScene extends Scene {
   }
   protected init(): void {}
   protected create(): void {
-    const myVec: Vector2 = new Vector2({ x: 0, y: 10 });
-    // myVec.flipSelf();
-    console.log(Vector2.flip(myVec));
+    const myVec: Vector2 = new Vector2({ x: 2, y: 3 });
+    const myVec2: Vector2 = new Vector2({ x: 2, y: 2 });
+    console.log(Vector2.componentProduct(myVec, myVec2));
   }
   protected update(ctx: CanvasRenderingContext2D, deltaTime: number): void {}
 }

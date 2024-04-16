@@ -27,6 +27,11 @@ export default class Vector2Base {
     this.y *= scaler;
   }
 
+  public componentProductToSelf(vec: Vector2 | Vector2Snippet): void {
+    this.x *= vec.x;
+    this.y *= vec.y;
+  }
+
   public divToSelf(scaler: number): void {
     this.x /= scaler;
     this.y /= scaler;
@@ -53,6 +58,13 @@ export default class Vector2Base {
 
   static mult(vec: Vector2 | Vector2Snippet, scaler: number): Vector2 {
     return new Vector2Base({ x: vec.x * scaler, y: vec.y * scaler });
+  }
+
+  static componentProduct(
+    vec1: Vector2 | Vector2Snippet,
+    vec2: Vector2 | Vector2Snippet
+  ): Vector2 {
+    return new Vector2Base({ x: vec1.x * vec2.x, y: vec1.y * vec2.y });
   }
 
   static div(vec: Vector2 | Vector2Snippet, scaler: number): Vector2 {
