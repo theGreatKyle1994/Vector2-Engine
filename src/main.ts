@@ -8,8 +8,9 @@ class myScene extends Scene {
   }
   protected init(): void {}
   protected create(): void {
-    const myVec: Vector2 = new Vector2({ x: 20, y: 1 });
-    console.log(Vector2.normalize(myVec));
+    const myVec: Vector2 = new Vector2({ x: 0, y: 10 });
+    // myVec.flipSelf();
+    console.log(Vector2.flip(myVec));
   }
   protected update(ctx: CanvasRenderingContext2D, deltaTime: number): void {}
 }

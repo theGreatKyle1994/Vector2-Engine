@@ -32,6 +32,11 @@ export default class Vector2Base {
     this.y /= scaler;
   }
 
+  public flipSelf(): void {
+    if (this.x !== 0) this.x = -this.x;
+    if (this.y !== 0) this.y = -this.y;
+  }
+
   static add(
     vec1: Vector2 | Vector2Snippet,
     vec2: Vector2 | Vector2Snippet
@@ -52,6 +57,12 @@ export default class Vector2Base {
 
   static div(vec: Vector2 | Vector2Snippet, scaler: number): Vector2 {
     return new Vector2Base({ x: vec.x / scaler, y: vec.y / scaler });
+  }
+
+  static flip(vec: Vector2 | Vector2Snippet): Vector2 {
+    let flippedX: number = vec.x !== 0 ? -vec.x : 0;
+    let flippedY: number = vec.y !== 0 ? -vec.y : 0;
+    return new Vector2Base({ x: flippedX, y: flippedY });
   }
 
   static distanceBetween(
