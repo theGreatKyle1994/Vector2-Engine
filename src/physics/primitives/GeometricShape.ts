@@ -72,7 +72,11 @@ export default abstract class GeometricShapeBase {
     this.doRotate(angle);
   }
 
-  public setFixedRotation(angle: number): void {
+  public setFixedRotation(angle: number, isFixed: boolean = true): void {
+    if (!isFixed) {
+      this.rotationAngle = angle;
+      this.checkCurrentRotation();
+    } else this.rotationAngle = 0;
     this.doRotate(angle);
   }
 

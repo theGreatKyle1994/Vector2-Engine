@@ -48,13 +48,20 @@ declare global {
   declare interface AnimConfig {
     object: Shape;
     isLooping?: boolean;
-    translateSteps?: Array<TranslateAnimPlot>;
+    translateSteps?: [TranslateAnimPlot, ...TranslateAnimPlot[]];
+    rotateSteps?: [RotateAnimPlot, ...RotateAnimPlot[]];
     actionType: string;
   }
 
   declare interface TranslateAnimPlot {
     from: Vector2Snippet;
     to: Vector2Snippet;
+    speed: number;
+  }
+
+  declare interface RotateAnimPlot {
+    angleFrom: number;
+    angleTo: number;
     speed: number;
   }
 
